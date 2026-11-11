@@ -1,45 +1,23 @@
-# TayJava Spring Boot Lab
+# Demo: @Configuration and @Bean (lesson 12)
 
-Sample Spring Boot application that grows with the **TayJava Spring Boot** article series.
-
-Readers build one continuous app while learning Spring Boot: from a bare project, through REST APIs for **Course** and **Enrollment**, to JPA, PostgreSQL, Flyway, tests, and a small production checklist. Each lesson that changes the code has a matching **git branch** so you can check out the state that matches the article.
-
-This repository is a companion for learning — not the TayJava production backend.
-
-## What you will build
-
-- A modular monolith under package `com.tayjava.elearning`
-- REST API around `Course` and `Enrollment` (in-memory first, then JPA + PostgreSQL)
-- Validation, centralized error handling (`ProblemDetail`), Flyway migrations, and automated tests on later branches
-
-## Tech stack
-
-| Area | Choice |
-|------|--------|
-| Language | Java 21 |
-| Framework | Spring Boot 4.0.9 |
-| Web | Spring MVC (`spring-boot-starter-webmvc`) |
-| Validation | Bean Validation (`spring-boot-starter-validation`) |
-| Build | Maven 3.9+ via Maven Wrapper (`./mvnw`) |
-| Persistence (later lessons) | Spring Data JPA, PostgreSQL, Flyway |
-| Tests | JUnit 5, Spring Boot test slices / Testcontainers (later lessons) |
-
-## Project coordinates
+**Kind:** `demo` (side branch — do **not** merge into the Course API project line)
 
 | | |
 |---|---|
-| Group / artifact | `com.tayjava` / `tayjava-spring-boot-lab` |
-| Main class | `com.tayjava.elearning.ElearningApiApplication` |
-| Default branch | `master` — lesson 05 skeleton |
-| License | MIT |
+| Branch | `demo/lesson-12-config-bean` |
+| Parent | `master` |
+| Package | `com.tayjava.demo` (test only) |
 
-## Run (current branch)
+## What changed
+
+Standalone Framework-container tests:
+
+- `ClockBeanDemoTest` — declare `Clock` with `@Bean`
+- `ConfigurationProxyDemoTest` — `proxyBeanMethods` vs method parameters
+- `DuplicateBeanDemoTest` — `@Primary` / `@Qualifier` for two `RestClient` beans
+
+## Run / test
 
 ```bash
 ./mvnw -q test
-./mvnw spring-boot:run
 ```
-
-Default URL: `http://localhost:8080`
-
-On `master` the app starts with no business HTTP API yet. Switch to a lesson branch (for example `lesson-08-hello` or `lesson-16-rest-memory`) to match the article you are following, then run the same commands.
