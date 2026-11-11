@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-14-runners` |
-| Parent | `lesson-13-profile-conditional` |
-| What changed | Ordered `ApplicationRunner` / `CommandLineRunner` seeders in `config/`. |
+| Branch | `lesson-16-rest-memory` |
+| Parent | `lesson-14-runners` |
+| What changed | In-memory Course REST: `GET /api/courses`, `GET /api/courses/{id}`, `DELETE /api/courses/{id}`. |
 
 ## Run (current branch)
 

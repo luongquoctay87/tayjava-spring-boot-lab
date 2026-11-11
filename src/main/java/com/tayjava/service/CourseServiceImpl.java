@@ -2,43 +2,65 @@ package com.tayjava.service;
 
 import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.dto.course.CourseResp;
+import com.tayjava.common.dto.course.CourseUpdateReq;
+import com.tayjava.entity.Course;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-/**
- * Early in-memory CourseService (constructor-DI target for EnrollmentService).
- * Lesson 16 replaces storage with an entity Course model and adds REST.
- */
 @Service
+@Slf4j(topic = "CourseService")
 public class CourseServiceImpl implements CourseService {
 
-  private final Map<Long, CourseResp> courses = new ConcurrentHashMap<>();
+  private final Map<Long, Course> store = new ConcurrentHashMap<>();
   private final AtomicLong sequence = new AtomicLong();
 
   @Override
   public List<CourseResp> list() {
-    return courses.values().stream().sorted(Comparator.comparing(CourseResp::id)).toList();
+    return store.values().stream()
+        .sorted(Comparator.comparing(Course::getId))
+        .map(CourseResp::from)
+        .toList();
   }
 
   @Override
   public CourseResp get(Long id) {
-    CourseResp course = courses.get(id);
-    if (course == null) {
-      throw new NoSuchElementException("Course not found: " + id);
-    }
-    return course;
+    return CourseResp.from(load(id));
   }
 
   @Override
-  public CourseResp create(CourseReq req) {
-    long id = sequence.incrementAndGet();
-    CourseResp course = new CourseResp(id, req.title(), req.slug(), req.level(), req.published());
-    courses.put(id, course);
+  public synchronized CourseResp create(CourseReq req) {
+    Course course =
+        new Course(
+            sequence.incrementAndGet(), req.title(), req.slug(), req.level(), req.published());
+    store.put(course.getId(), course);
+    log.info("Created course id={} slug={}", course.getId(), course.getSlug());
+    return CourseResp.from(course);
+  }
+
+  @Override
+  public CourseResp update(Long id, CourseUpdateReq req) {
+    Course course = load(id);
+    course.update(req.title(), req.level(), req.published());
+    return CourseResp.from(course);
+  }
+
+  @Override
+  public void delete(Long id) {
+    store.remove(load(id).getId());
+  }
+
+  @Override
+  public Course load(Long id) {
+    Course course = store.get(id);
+    if (course == null) {
+      throw new NoSuchElementException("Course not found: " + id);
+    }
     return course;
   }
 }
