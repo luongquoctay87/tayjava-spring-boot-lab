@@ -1,6 +1,6 @@
-# lesson-47-restclient
+# lesson-48-virtual-threads
 
-- **Parent:** `lesson-46-events`
-- **What changed:** Add `spring-boot-starter-restclient`, `HttpClientConfig` timeouts, `CouponClient`, and `@RestClientTest` with MockRestServiceServer.
+- **Parent:** `lesson-47-restclient`
+- **What changed:** Add profile `application-virtual.yml` (`spring.threads.virtual.enabled=true`) and switch `enrollmentExecutor` to `newVirtualThreadPerTaskExecutor()`.
 
 Run tests: `./mvnw -q test`

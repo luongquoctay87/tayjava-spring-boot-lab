@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-47-restclient` |
-| Parent | `lesson-46-events` |
-| What changed | Add `spring-boot-starter-restclient`, `HttpClientConfig` timeouts, `CouponClient`, and `@RestClientTest` with MockRestServiceServer. |
+| Branch | `lesson-48-virtual-threads` |
+| Parent | `lesson-47-restclient` |
+| What changed | Add profile `application-virtual.yml` (`spring.threads.virtual.enabled=true`) and switch `enrollmentExecutor` to `newVirtualThreadPerTaskExecutor()`. |
 
 
 ## Database
