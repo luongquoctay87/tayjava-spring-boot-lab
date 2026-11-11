@@ -1,6 +1,22 @@
 spring:
   application:
     name: tayjava-spring-boot-lab
+  datasource:
+    url: jdbc:h2:mem:lesson25;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: false
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
 
 server:
   port: 8080
@@ -8,4 +24,6 @@ server:
 logging:
   level:
     root: INFO
+    com.tayjava.demo: INFO
     com.tayjava.elearning: INFO
+    org.hibernate.SQL: debug
