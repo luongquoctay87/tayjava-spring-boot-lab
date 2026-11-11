@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-08-hello` |
-| Parent | `lesson-07-config` |
-| What changed | Temporary `HelloController` (`GET /api/hello`). Remove before lessons 32/50. |
+| Branch | `lesson-11-constructor-di` |
+| Parent | `lesson-08-hello` |
+| What changed | Constructor DI: `CourseService` + `EnrollmentService` (interface/`*Impl`), Lombok, early DTOs/enums. |
 
 ## Run (current branch)
 
@@ -49,10 +49,4 @@ This repository is a companion for learning — not the TayJava production backe
 ```
 
 Default URL: `http://localhost:8080`
-
-Smoke:
-
-```bash
-curl http://localhost:8080/api/hello
-```
 
