@@ -4,8 +4,10 @@ import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.dto.course.CourseResp;
 import com.tayjava.common.dto.course.CourseUpdateReq;
 import com.tayjava.service.CourseService;
+import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,8 +35,9 @@ public class CourseController {
   }
 
   @PostMapping
-  public CourseResp create(@RequestBody CourseReq req) {
-    return courseService.create(req);
+  public ResponseEntity<CourseResp> create(@RequestBody CourseReq req) {
+    CourseResp created = courseService.create(req);
+    return ResponseEntity.created(URI.create("/api/courses/" + created.id())).body(created);
   }
 
   @PutMapping("/{id}")
@@ -43,7 +46,8 @@ public class CourseController {
   }
 
   @DeleteMapping("/{id}")
-  public void delete(@PathVariable Long id) {
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
     courseService.delete(id);
+    return ResponseEntity.noContent().build();
   }
 }

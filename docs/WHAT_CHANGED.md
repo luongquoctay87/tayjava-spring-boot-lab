@@ -1,14 +1,6 @@
-# lesson-17-input
+# lesson-18-response-entity
 
-- **Parent:** `lesson-16-rest-memory`
-- **What changed:** `@RequestBody` / `@PathVariable` for `POST` create and `PUT` update on `/api/courses`.
-
-## Smoke
-
-```bash
-curl -X POST http://localhost:8080/api/courses \
-  -H 'Content-Type: application/json' \
-  -d '{"title":"Spring Boot","slug":"spring-boot","level":"BEGINNER","published":true}'
-```
+- **Parent:** `lesson-17-input`
+- **What changed:** `ResponseEntity` statuses — create **201** + `Location`, delete **204**, missing/conflict via `ResponseStatusException` (**404**/**409**).
 
 Run tests: `./mvnw -q test`

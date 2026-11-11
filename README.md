@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-17-input` |
-| Parent | `lesson-16-rest-memory` |
-| What changed | Request mapping inputs: `@PathVariable` / `@RequestBody` for create and update. |
+| Branch | `lesson-18-response-entity` |
+| Parent | `lesson-17-input` |
+| What changed | `ResponseEntity` for 201/204 plus 404/409 via `ResponseStatusException`. |
 
 ## Run (current branch)
 

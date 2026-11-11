@@ -7,11 +7,12 @@ import com.tayjava.entity.Course;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @Slf4j(topic = "CourseService")
@@ -38,7 +39,7 @@ public class CourseServiceImpl implements CourseService {
     boolean slugTaken =
         store.values().stream().anyMatch(course -> course.getSlug().equals(req.slug()));
     if (slugTaken) {
-      throw new IllegalStateException("Slug already exists: " + req.slug());
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "Slug already exists: " + req.slug());
     }
     Course course =
         new Course(
@@ -64,7 +65,7 @@ public class CourseServiceImpl implements CourseService {
   public Course load(Long id) {
     Course course = store.get(id);
     if (course == null) {
-      throw new NoSuchElementException("Course not found: " + id);
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found: " + id);
     }
     return course;
   }
