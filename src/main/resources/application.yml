@@ -24,6 +24,5 @@ server:
 logging:
   level:
     root: INFO
-    com.tayjava.demo: INFO
-    com.tayjava.elearning: INFO
+    com.tayjava: INFO
     org.hibernate.SQL: debug

@@ -11,5 +11,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EntityScan(basePackageClasses = DemoCourse.class)
 @EnableJpaRepositories(basePackageClasses = DemoCourseRepository.class)
-public class DemoJpaConfig {
-}
+public class DemoJpaConfig {}

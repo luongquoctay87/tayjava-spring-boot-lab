@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Minimal entity for the Spring Data JPA intro demo (lesson 25).
@@ -13,36 +15,22 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "demo_course")
+@Getter
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class DemoCourse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(nullable = false)
-    private String title;
+  @Column(nullable = false)
+  private String title;
 
-    @Column(nullable = false, unique = true, length = 120)
-    private String slug;
+  @Column(nullable = false, unique = true, length = 120)
+  private String slug;
 
-    protected DemoCourse() {
-        // JPA
-    }
-
-    public DemoCourse(String title, String slug) {
-        this.title = title;
-        this.slug = slug;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
+  public DemoCourse(String title, String slug) {
+    this.title = title;
+    this.slug = slug;
+  }
 }

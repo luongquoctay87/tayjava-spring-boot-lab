@@ -14,34 +14,33 @@ import org.springframework.context.annotation.Import;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 class SpringDataJpaIntroDemoTest {
 
-    @SpringBootConfiguration
-    @EnableAutoConfiguration
-    @Import(DemoJpaConfig.class)
-    static class DemoJpaSlice {
-    }
+  @SpringBootConfiguration
+  @EnableAutoConfiguration
+  @Import(DemoJpaConfig.class)
+  static class DemoJpaSlice {}
 
-    @Autowired
-    private DemoCourseRepository repository;
+  @Autowired
+  private DemoCourseRepository repository;
 
-    @Test
-    void saveAssignsIdAndDerivedQueriesWork() {
-        assertThat(repository.existsBySlug("spring-data-jpa")).isFalse();
+  @Test
+  void saveAssignsIdAndDerivedQueriesWork() {
+    assertThat(repository.existsBySlug("spring-data-jpa")).isFalse();
 
-        DemoCourse saved = repository.save(new DemoCourse("Spring Data JPA Intro", "spring-data-jpa"));
+    DemoCourse saved = repository.save(new DemoCourse("Spring Data JPA Intro", "spring-data-jpa"));
 
-        assertThat(saved.getId()).isNotNull();
-        assertThat(repository.findById(saved.getId())).isPresent();
-        assertThat(repository.existsBySlug("spring-data-jpa")).isTrue();
-        assertThat(repository.findBySlug("spring-data-jpa"))
-                .isPresent()
-                .get()
-                .extracting(DemoCourse::getTitle)
-                .isEqualTo("Spring Data JPA Intro");
-        assertThat(repository.count()).isEqualTo(1);
-    }
+    assertThat(saved.getId()).isNotNull();
+    assertThat(repository.findById(saved.getId())).isPresent();
+    assertThat(repository.existsBySlug("spring-data-jpa")).isTrue();
+    assertThat(repository.findBySlug("spring-data-jpa"))
+        .isPresent()
+        .get()
+        .extracting(DemoCourse::getTitle)
+        .isEqualTo("Spring Data JPA Intro");
+    assertThat(repository.count()).isEqualTo(1);
+  }
 
-    @Test
-    void repositoryBeanIsSpringDataProxy() {
-        assertThat(repository.getClass().getName()).contains("Proxy");
-    }
+  @Test
+  void repositoryBeanIsSpringDataProxy() {
+    assertThat(repository.getClass().getName()).contains("Proxy");
+  }
 }
