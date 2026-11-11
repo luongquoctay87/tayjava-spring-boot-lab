@@ -6,7 +6,8 @@
 |---|---|
 | Branch | `demo/lesson-09-ioc-lifecycle` |
 | Parent | `master` |
-| Package | `com.tayjava.demo` (test only, outside app scan) |
+| Package | `com.tayjava.demo` (test only, outside Boot component scan for the probe beans) |
+| Entry | `com.tayjava.TayJavApplication` |
 
 ## What changed
 
