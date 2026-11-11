@@ -8,6 +8,8 @@ import com.tayjava.common.dto.course.CourseResp;
 import com.tayjava.common.dto.enrollment.EnrollmentResp;
 import com.tayjava.common.enums.ECourseLevel;
 import com.tayjava.common.enums.EEnrollmentStatus;
+import com.tayjava.common.enums.ErrorCode;
+import com.tayjava.common.exception.ErrorException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,7 +41,8 @@ class EnrollmentServiceTest {
         .thenReturn(new CourseResp(1L, "Draft", "draft", ECourseLevel.BEGINNER, false));
 
     assertThatThrownBy(() -> enrollmentService.enroll(1L, "alice@example.com"))
-        .isInstanceOf(IllegalStateException.class)
-        .hasMessageContaining("not published");
+        .isInstanceOf(ErrorException.class)
+        .extracting(ex -> ((ErrorException) ex).getErrorCode())
+        .isEqualTo(ErrorCode.COURSE_NOT_PUBLISHED);
   }
 }

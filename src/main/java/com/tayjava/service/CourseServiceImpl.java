@@ -3,6 +3,8 @@ package com.tayjava.service;
 import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.dto.course.CourseResp;
 import com.tayjava.common.dto.course.CourseUpdateReq;
+import com.tayjava.common.enums.ErrorCode;
+import com.tayjava.common.exception.ErrorException;
 import com.tayjava.entity.Course;
 import java.util.Comparator;
 import java.util.List;
@@ -10,9 +12,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @Slf4j(topic = "CourseService")
@@ -39,7 +39,7 @@ public class CourseServiceImpl implements CourseService {
     boolean slugTaken =
         store.values().stream().anyMatch(course -> course.getSlug().equals(req.slug()));
     if (slugTaken) {
-      throw new ResponseStatusException(HttpStatus.CONFLICT, "Slug already exists: " + req.slug());
+      throw new ErrorException(ErrorCode.SLUG_TAKEN, "Slug already exists: " + req.slug());
     }
     Course course =
         new Course(
@@ -65,7 +65,7 @@ public class CourseServiceImpl implements CourseService {
   public Course load(Long id) {
     Course course = store.get(id);
     if (course == null) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found: " + id);
+      throw new ErrorException(ErrorCode.COURSE_NOT_FOUND, "Course not found: " + id);
     }
     return course;
   }

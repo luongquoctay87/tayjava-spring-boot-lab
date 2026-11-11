@@ -1,8 +1,8 @@
 package com.tayjava.config;
 
+import com.tayjava.service.CourseService;
 import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.enums.ECourseLevel;
-import com.tayjava.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;

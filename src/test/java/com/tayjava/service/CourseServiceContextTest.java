@@ -18,6 +18,7 @@ class CourseServiceContextTest {
     courseService.create(
         new CourseReq("Spring Boot", "spring-boot-ctx", ECourseLevel.BEGINNER, true));
 
-    assertThat(courseService.list()).anyMatch(c -> "spring-boot-ctx".equals(c.slug()));
+    assertThat(courseService.list())
+        .anyMatch(c -> "spring-boot-ctx".equals(c.slug()));
   }
 }

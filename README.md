@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-21-validation` |
-| Parent | `lesson-20-cors` |
-| What changed | `@Valid` + Bean Validation constraints on `CourseReq` / `CourseUpdateReq`. |
+| Branch | `lesson-22-exception-handler` |
+| Parent | `lesson-21-validation` |
+| What changed | Align package layout with production `e-learning`: `controller` / `service`(+Impl) / `entity` / `common`. `ErrorException` + `ErrorCode` + `GlobalExceptionHandling` → `Resp`. DTOs `CourseReq`/`CourseResp`. Lombok `@RequiredArgsConstructor`. |
 
 ## Run (current branch)
 
@@ -55,6 +55,5 @@ Smoke (expect 400):
 ```bash
 curl -i -X POST http://localhost:8080/api/courses \
   -H "Content-Type: application/json" \
-  -d '{"title":"","slug":"Bad Slug","level":"BEGINNER","published":true}'
+  -d '{"title":"","slug":"Bad Slug","level":"EXPERT","published":true}'
 ```
-

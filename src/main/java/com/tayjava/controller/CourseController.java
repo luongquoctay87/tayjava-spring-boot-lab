@@ -1,5 +1,7 @@
 package com.tayjava.controller;
 
+import com.tayjava.common.dto.ApiResp;
+import com.tayjava.common.dto.Resp;
 import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.dto.course.CourseResp;
 import com.tayjava.common.dto.course.CourseUpdateReq;
@@ -26,29 +28,30 @@ public class CourseController {
   private final CourseService courseService;
 
   @GetMapping
-  public List<CourseResp> list() {
-    return courseService.list();
+  public ResponseEntity<Resp<List<CourseResp>>> list() {
+    return ApiResp.ok(courseService.list());
   }
 
   @GetMapping("/{id}")
-  public CourseResp get(@PathVariable Long id) {
-    return courseService.get(id);
+  public ResponseEntity<Resp<CourseResp>> get(@PathVariable Long id) {
+    return ApiResp.ok(courseService.get(id));
   }
 
   @PostMapping
-  public ResponseEntity<CourseResp> create(@Valid @RequestBody CourseReq req) {
+  public ResponseEntity<Resp<CourseResp>> create(@Valid @RequestBody CourseReq req) {
     CourseResp created = courseService.create(req);
-    return ResponseEntity.created(URI.create("/api/courses/" + created.id())).body(created);
+    return ApiResp.created(URI.create("/api/courses/" + created.id()), created);
   }
 
   @PutMapping("/{id}")
-  public CourseResp update(@PathVariable Long id, @Valid @RequestBody CourseUpdateReq req) {
-    return courseService.update(id, req);
+  public ResponseEntity<Resp<CourseResp>> update(
+      @PathVariable Long id, @Valid @RequestBody CourseUpdateReq req) {
+    return ApiResp.ok(courseService.update(id, req));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> delete(@PathVariable Long id) {
+  public ResponseEntity<Resp<Void>> delete(@PathVariable Long id) {
     courseService.delete(id);
-    return ResponseEntity.noContent().build();
+    return ApiResp.noContent();
   }
 }

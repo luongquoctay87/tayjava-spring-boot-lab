@@ -1,15 +1,15 @@
-# lesson-21-validation
+# lesson-22-exception-handler
 
-- **Parent:** `lesson-20-cors`
-- **What changed:** Bean Validation on `CourseReq` / `CourseUpdateReq` with `@Valid` on controller methods (400 on constraint violations). Central `Resp` error envelope arrives in lesson 22.
+- **Parent:** `lesson-21-validation`
+- **What changed:** `ErrorException` + `ErrorCode` + `GlobalExceptionHandling` → `Resp` envelope. Controllers return `ResponseEntity<Resp<T>>` via `ApiResp`. Course/Enrollment services throw `ErrorException`. Seed runners stay under `config/`.
 
 ## Smoke
 
 ```bash
 curl -i -X POST http://localhost:8080/api/courses \
   -H 'Content-Type: application/json' \
-  -d '{"title":"","slug":"Bad Slug","level":"BEGINNER","published":true}'
-# expect HTTP 400
+  -d '{"title":"","slug":"Bad Slug","level":"EXPERT","published":true}'
+# expect HTTP 400 with $.code == VALIDATION_ERROR
 ```
 
 Run tests: `./mvnw -q test`

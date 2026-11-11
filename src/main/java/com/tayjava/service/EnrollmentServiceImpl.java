@@ -3,6 +3,8 @@ package com.tayjava.service;
 import com.tayjava.common.dto.course.CourseResp;
 import com.tayjava.common.dto.enrollment.EnrollmentResp;
 import com.tayjava.common.enums.EEnrollmentStatus;
+import com.tayjava.common.enums.ErrorCode;
+import com.tayjava.common.exception.ErrorException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -21,7 +23,15 @@ public class EnrollmentServiceImpl implements EnrollmentService {
   public EnrollmentResp enroll(Long courseId, String studentEmail) {
     CourseResp course = courseService.get(courseId);
     if (!course.published()) {
-      throw new IllegalStateException("Course is not published: " + courseId);
+      throw new ErrorException(
+          ErrorCode.COURSE_NOT_PUBLISHED, "Course is not published: " + courseId);
+    }
+    boolean alreadyEnrolled =
+        enrollments.values().stream()
+            .anyMatch(e -> e.courseId().equals(courseId) && e.studentEmail().equals(studentEmail));
+    if (alreadyEnrolled) {
+      throw new ErrorException(
+          ErrorCode.ALREADY_ENROLLED, "Already enrolled in course " + courseId);
     }
     long id = sequence.incrementAndGet();
     EnrollmentResp enrollment =
