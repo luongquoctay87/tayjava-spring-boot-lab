@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-20-cors` |
-| Parent | `lesson-18-response-entity` |
-| What changed | Optional `CorsConfig` for SPA origins (`elearning.cors.allowed-origins`). |
+| Branch | `lesson-21-validation` |
+| Parent | `lesson-20-cors` |
+| What changed | `@Valid` + Bean Validation constraints on `CourseReq` / `CourseUpdateReq`. |
 
 ## Run (current branch)
 
@@ -49,4 +49,12 @@ This repository is a companion for learning — not the TayJava production backe
 ```
 
 Default URL: `http://localhost:8080`
+
+Smoke (expect 400):
+
+```bash
+curl -i -X POST http://localhost:8080/api/courses \
+  -H "Content-Type: application/json" \
+  -d '{"title":"","slug":"Bad Slug","level":"BEGINNER","published":true}'
+```
 

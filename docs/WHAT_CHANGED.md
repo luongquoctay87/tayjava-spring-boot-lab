@@ -1,15 +1,15 @@
-# lesson-20-cors
+# lesson-21-validation
 
-- **Parent:** `lesson-18-response-entity`
-- **What changed:** Optional `CorsConfig` for `/api/**` with `elearning.cors.allowed-origins` (default `http://localhost:5173`). Remove before lessons 32/50.
+- **Parent:** `lesson-20-cors`
+- **What changed:** Bean Validation on `CourseReq` / `CourseUpdateReq` with `@Valid` on controller methods (400 on constraint violations). Central `Resp` error envelope arrives in lesson 22.
 
 ## Smoke
 
 ```bash
-./mvnw spring-boot:run
-curl -i -X OPTIONS http://localhost:8080/api/courses \
-  -H 'Origin: http://localhost:5173' \
-  -H 'Access-Control-Request-Method: GET'
+curl -i -X POST http://localhost:8080/api/courses \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"","slug":"Bad Slug","level":"BEGINNER","published":true}'
+# expect HTTP 400
 ```
 
 Run tests: `./mvnw -q test`

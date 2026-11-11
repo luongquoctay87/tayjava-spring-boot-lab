@@ -4,6 +4,7 @@ import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.dto.course.CourseResp;
 import com.tayjava.common.dto.course.CourseUpdateReq;
 import com.tayjava.service.CourseService;
+import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -35,13 +36,13 @@ public class CourseController {
   }
 
   @PostMapping
-  public ResponseEntity<CourseResp> create(@RequestBody CourseReq req) {
+  public ResponseEntity<CourseResp> create(@Valid @RequestBody CourseReq req) {
     CourseResp created = courseService.create(req);
     return ResponseEntity.created(URI.create("/api/courses/" + created.id())).body(created);
   }
 
   @PutMapping("/{id}")
-  public CourseResp update(@PathVariable Long id, @RequestBody CourseUpdateReq req) {
+  public CourseResp update(@PathVariable Long id, @Valid @RequestBody CourseUpdateReq req) {
     return courseService.update(id, req);
   }
 

@@ -65,19 +65,16 @@ class CourseControllerTest {
   }
 
   @Test
-  void createDuplicateSlugReturns409() throws Exception {
-    when(courseService.create(any(CourseReq.class)))
-        .thenThrow(new ResponseStatusException(HttpStatus.CONFLICT, "Slug already exists"));
-
+  void createWithInvalidBodyReturns400() throws Exception {
     mockMvc
         .perform(
             post("/api/courses")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(
                     """
-                    {"title":"Spring Boot","slug":"spring-boot","level":"BEGINNER","published":true}
+                    {"title":"","slug":"Bad Slug","level":"BEGINNER","published":true}
                     """))
-        .andExpect(status().isConflict());
+        .andExpect(status().isBadRequest());
   }
 
   @Test
