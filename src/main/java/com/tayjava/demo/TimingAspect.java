@@ -1,11 +1,10 @@
 package com.tayjava.demo;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,29 +13,28 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
+@Slf4j(topic = "TimingAspect")
 public class TimingAspect {
 
-    private static final Logger log = LoggerFactory.getLogger(TimingAspect.class);
+  private final AtomicInteger adviceCount = new AtomicInteger();
 
-    private final AtomicInteger adviceCount = new AtomicInteger();
-
-    @Around("execution(* com.tayjava.demo.DemoEnrollmentService.*(..))")
-    public Object logDuration(ProceedingJoinPoint pjp) throws Throwable {
-        adviceCount.incrementAndGet();
-        long start = System.nanoTime();
-        try {
-            return pjp.proceed();
-        } finally {
-            long ms = (System.nanoTime() - start) / 1_000_000;
-            log.info("{} took {} ms", pjp.getSignature().toShortString(), ms);
-        }
+  @Around("execution(* com.tayjava.demo.DemoEnrollmentService.*(..))")
+  public Object logDuration(ProceedingJoinPoint pjp) throws Throwable {
+    adviceCount.incrementAndGet();
+    long start = System.nanoTime();
+    try {
+      return pjp.proceed();
+    } finally {
+      long ms = (System.nanoTime() - start) / 1_000_000;
+      log.info("{} took {} ms", pjp.getSignature().toShortString(), ms);
     }
+  }
 
-    public int adviceCount() {
-        return adviceCount.get();
-    }
+  public int adviceCount() {
+    return adviceCount.get();
+  }
 
-    public void reset() {
-        adviceCount.set(0);
-    }
+  public void reset() {
+    adviceCount.set(0);
+  }
 }

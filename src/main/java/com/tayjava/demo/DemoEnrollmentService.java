@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class DemoEnrollmentService {
 
-    public String enroll(String email) {
-        return "enrolled:" + email;
-    }
+  public String enroll(String email) {
+    return "enrolled:" + email;
+  }
 
-    /**
-     * Self-invocation: the outer method is advised; the nested {@link #enroll(String)}
-     * call stays on {@code this} and skips the aspect.
-     */
-    public String enrollViaSelfInvocation(String email) {
-        return enroll(email);
-    }
+  /**
+   * Self-invocation: the outer method is advised; the nested {@link #enroll(String)}
+   * call stays on {@code this} and skips the aspect.
+   */
+  public String enrollViaSelfInvocation(String email) {
+    return enroll(email);
+  }
 }

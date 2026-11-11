@@ -8,5 +8,4 @@ server:
 logging:
   level:
     root: INFO
-    com.tayjava.elearning: INFO
-    com.tayjava.demo: INFO
+    com.tayjava: INFO

@@ -7,10 +7,11 @@
 | Branch | `demo/lesson-42-aop` |
 | Parent | `master` |
 | Package | `com.tayjava.demo` |
+| Entry | `com.tayjava.TayJavApplication` |
 
 ## What changed
 
-Minimal Aspect/AOP demo imported on `ElearningApiApplication`:
+Minimal Aspect/AOP demo under `com.tayjava.demo` (scanned by `TayJavApplication`):
 
 - `spring-boot-starter-aspectj` — Boot 4 AOP starter (proxy-based Spring AOP)
 - `TimingAspect` — `@Around` advice that times `DemoEnrollmentService` methods
