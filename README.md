@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-34-mockmvc` |
-| Parent | `lesson-32-lab` |
-| What changed | Focus `@WebMvcTest` / MockMvc for `CourseController` and `EnrollmentController`: `@MockitoBean` services, assert 201/`Location`, validation `VALIDATION_ERROR`, and `ErrorException` → `Resp` (`ALREADY_ENROLLED`) without a database. No production code change. |
+| Branch | `lesson-35-datajpatest` |
+| Parent | `lesson-34-mockmvc` |
+| What changed | Add `@DataJpaTest` for `CourseRepository` / `EnrollmentRepository` on Testcontainers PostgreSQL (`TestcontainersConfig` + `@ServiceConnection`), plus `spring-boot-starter-data-jpa-test`. Unique constraint covered with `saveAndFlush`. |
 
 
 ## Database
