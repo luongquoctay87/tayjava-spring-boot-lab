@@ -7,6 +7,7 @@
 | Branch | `demo/lesson-12-config-bean` |
 | Parent | `master` |
 | Package | `com.tayjava.demo` (test only) |
+| Entry | `com.tayjava.TayJavApplication` |
 
 ## What changed
 

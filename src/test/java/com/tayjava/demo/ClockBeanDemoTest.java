@@ -16,46 +16,46 @@ import org.springframework.stereotype.Component;
  */
 class ClockBeanDemoTest {
 
-    @Configuration
-    static class TimeConfig {
-        @Bean
-        Clock clock() {
-            return Clock.systemUTC();
-        }
+  @Configuration
+  static class TimeConfig {
+    @Bean
+    Clock clock() {
+      return Clock.systemUTC();
+    }
+  }
+
+  @Component
+  static class EnrollmentWindow {
+    private final Clock clock;
+
+    EnrollmentWindow(Clock clock) {
+      this.clock = clock;
     }
 
-    @Component
-    static class EnrollmentWindow {
-        private final Clock clock;
-
-        EnrollmentWindow(Clock clock) {
-            this.clock = clock;
-        }
-
-        boolean isOpen(Instant opensAt, Instant closesAt) {
-            Instant now = clock.instant();
-            return !now.isBefore(opensAt) && now.isBefore(closesAt);
-        }
+    boolean isOpen(Instant opensAt, Instant closesAt) {
+      Instant now = clock.instant();
+      return !now.isBefore(opensAt) && now.isBefore(closesAt);
     }
+  }
 
-    @Test
-    void containerInjectsTheClockBean() {
-        try (var context = new AnnotationConfigApplicationContext(TimeConfig.class, EnrollmentWindow.class)) {
-            assertThat(context.getBean("clock")).isSameAs(context.getBean(Clock.class));
-            assertThat(context.getBean(EnrollmentWindow.class)).isNotNull();
-        }
+  @Test
+  void containerInjectsTheClockBean() {
+    try (var context = new AnnotationConfigApplicationContext(TimeConfig.class, EnrollmentWindow.class)) {
+      assertThat(context.getBean("clock")).isSameAs(context.getBean(Clock.class));
+      assertThat(context.getBean(EnrollmentWindow.class)).isNotNull();
     }
+  }
 
-    @Test
-    void fixedClockMakesTimeTestable() {
-        Clock fixed = Clock.fixed(Instant.parse("2026-11-10T09:00:00Z"), ZoneOffset.UTC);
-        EnrollmentWindow window = new EnrollmentWindow(fixed);
+  @Test
+  void fixedClockMakesTimeTestable() {
+    Clock fixed = Clock.fixed(Instant.parse("2026-11-10T09:00:00Z"), ZoneOffset.UTC);
+    EnrollmentWindow window = new EnrollmentWindow(fixed);
 
-        assertThat(window.isOpen(
-                        Instant.parse("2026-11-01T00:00:00Z"), Instant.parse("2026-11-30T00:00:00Z")))
-                .isTrue();
-        assertThat(window.isOpen(
-                        Instant.parse("2026-12-01T00:00:00Z"), Instant.parse("2026-12-31T00:00:00Z")))
-                .isFalse();
-    }
+    assertThat(window.isOpen(
+            Instant.parse("2026-11-01T00:00:00Z"), Instant.parse("2026-11-30T00:00:00Z")))
+        .isTrue();
+    assertThat(window.isOpen(
+            Instant.parse("2026-12-01T00:00:00Z"), Instant.parse("2026-12-31T00:00:00Z")))
+        .isFalse();
+  }
 }
