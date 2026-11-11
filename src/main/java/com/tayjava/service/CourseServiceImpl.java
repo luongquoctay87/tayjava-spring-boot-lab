@@ -6,50 +6,46 @@ import com.tayjava.common.dto.course.CourseUpdateReq;
 import com.tayjava.common.enums.ErrorCode;
 import com.tayjava.common.exception.ErrorException;
 import com.tayjava.entity.Course;
-import java.util.Comparator;
+import com.tayjava.repository.CourseRepository;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j(topic = "CourseService")
 public class CourseServiceImpl implements CourseService {
 
-  private final Map<Long, Course> store = new ConcurrentHashMap<>();
-  private final AtomicLong sequence = new AtomicLong();
+  private final CourseRepository courses;
 
   @Override
+  @Transactional(readOnly = true)
   public List<CourseResp> list() {
-    return store.values().stream()
-        .sorted(Comparator.comparing(Course::getId))
-        .map(CourseResp::from)
-        .toList();
+    return courses.findAll().stream().map(CourseResp::from).toList();
   }
 
   @Override
+  @Transactional(readOnly = true)
   public CourseResp get(Long id) {
     return CourseResp.from(load(id));
   }
 
   @Override
-  public synchronized CourseResp create(CourseReq req) {
-    boolean slugTaken =
-        store.values().stream().anyMatch(course -> course.getSlug().equals(req.slug()));
-    if (slugTaken) {
+  @Transactional
+  public CourseResp create(CourseReq req) {
+    if (courses.existsBySlug(req.slug())) {
       throw new ErrorException(ErrorCode.SLUG_TAKEN, "Slug already exists: " + req.slug());
     }
-    Course course =
-        new Course(
-            sequence.incrementAndGet(), req.title(), req.slug(), req.level(), req.published());
-    store.put(course.getId(), course);
-    log.info("Created course id={} slug={}", course.getId(), course.getSlug());
-    return CourseResp.from(course);
+    Course saved =
+        courses.save(new Course(req.title(), req.slug(), req.level(), req.published()));
+    log.info("Created course id={} slug={}", saved.getId(), saved.getSlug());
+    return CourseResp.from(saved);
   }
 
   @Override
+  @Transactional
   public CourseResp update(Long id, CourseUpdateReq req) {
     Course course = load(id);
     course.update(req.title(), req.level(), req.published());
@@ -57,16 +53,17 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
+  @Transactional
   public void delete(Long id) {
-    store.remove(load(id).getId());
+    courses.delete(load(id));
   }
 
   @Override
+  @Transactional(readOnly = true)
   public Course load(Long id) {
-    Course course = store.get(id);
-    if (course == null) {
-      throw new ErrorException(ErrorCode.COURSE_NOT_FOUND, "Course not found: " + id);
-    }
-    return course;
+    return courses
+        .findById(id)
+        .orElseThrow(
+            () -> new ErrorException(ErrorCode.COURSE_NOT_FOUND, "Course not found: " + id));
   }
 }

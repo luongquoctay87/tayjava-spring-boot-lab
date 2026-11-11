@@ -1,11 +1,19 @@
 package com.tayjava;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-class TayJavApplicationTests {
+import com.tayjava.support.AbstractPostgresIntegrationTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+
+class TayJavApplicationTests extends AbstractPostgresIntegrationTest {
+
+  @Autowired private ApplicationContext applicationContext;
 
   @Test
-  void contextLoads() {}
+  void contextLoads() {
+    assertThat(applicationContext).isNotNull();
+    assertThat(applicationContext.getBean(TayJavApplication.class)).isNotNull();
+  }
 }

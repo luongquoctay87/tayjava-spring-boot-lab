@@ -37,28 +37,20 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-24-api-design` |
-| Parent | `lesson-23-dto-entity` |
-| What changed | Locks the Course API contract: resources, HTTP statuses (201/204/400/404/409), and `ErrorCode` values (`VALIDATION_ERROR`, `COURSE_NOT_FOUND`, `SLUG_TAKEN`). Enrollment routes are specified for later JPA lessons. |
+| Branch | `lesson-26-jpa` |
+| Parent | `lesson-24-api-design` |
+| What changed | JPA `Course` entity + `CourseRepository`; `CourseServiceImpl` persists via the repository. PostgreSQL datasource, `open-in-view: false`, temporary `ddl-auto: update`. Reference SQL in `ddl/V1__create_course.sql`. Tests boot against Testcontainers PostgreSQL. |
 
-### Locked Course API
+## Database
 
-| Method | Path | Success | Error codes |
-|--------|------|---------|-------------|
-| `GET` | `/api/courses` | 200 `Resp<data[]>` | — |
-| `GET` | `/api/courses/{id}` | 200 | `COURSE_NOT_FOUND` 404 |
-| `POST` | `/api/courses` | 201 + `Location` | `VALIDATION_ERROR` 400, `SLUG_TAKEN` 409 |
-| `PUT` | `/api/courses/{id}` | 200 | `VALIDATION_ERROR` 400, `COURSE_NOT_FOUND` 404 |
-| `DELETE` | `/api/courses/{id}` | 204 | `COURSE_NOT_FOUND` 404 |
+```bash
+docker run --rm -d --name tayjava-pg \
+  -e POSTGRES_USER=tayjava -e POSTGRES_PASSWORD=tayjava -e POSTGRES_DB=tayjava \
+  -p 5432:5432 postgres:16-alpine
+```
 
-### Enrollment routes (implemented from lesson 27)
+Optional manual DDL (Hibernate `ddl-auto=update` also creates the table): `psql` against the DB and apply `ddl/V1__create_course.sql`.
 
-| Method | Path | Success | Error codes |
-|--------|------|---------|-------------|
-| `POST` | `/api/courses/{courseId}/enrollments` | 201 + `Location` | `COURSE_NOT_FOUND`, `COURSE_NOT_PUBLISHED`, `ALREADY_ENROLLED` |
-| `GET` | `/api/enrollments/{id}` | 200 | `ENROLLMENT_NOT_FOUND` |
-| `GET` | `/api/enrollments?studentEmail=` | 200 | — |
-| `POST` | `/api/enrollments/{id}/cancel` | 200 | `ENROLLMENT_NOT_FOUND` |
 
 ## Run (current branch)
 
@@ -69,10 +61,10 @@ This repository is a companion for learning — not the TayJava production backe
 
 Default URL: `http://localhost:8080`
 
-Smoke (expect 400):
+Smoke:
 
 ```bash
 curl -i -X POST http://localhost:8080/api/courses \
   -H "Content-Type: application/json" \
-  -d '{"title":"","slug":"Bad Slug","level":"EXPERT","published":true}'
+  -d '{"title":"Spring Boot from zero","slug":"spring-boot-from-zero","level":"BEGINNER","published":true}'
 ```

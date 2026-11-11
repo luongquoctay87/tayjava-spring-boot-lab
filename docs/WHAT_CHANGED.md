@@ -1,15 +1,16 @@
-# lesson-24-api-design
+# lesson-26-jpa
 
-- **Parent:** `lesson-23-dto-entity`
-- **What changed:** Locks Course API resources, statuses (201/204/400/404/409), and `ErrorCode` values. Enrollment routes documented for later JPA lessons; no production code change required on this branch.
+- **Parent:** `lesson-24-api-design`
+- **What changed:** JPA `Course` + `CourseRepository`; service persists with `@Transactional`. PostgreSQL + `ddl-auto: update`, `open-in-view: false`. Reference `ddl/V1__create_course.sql`. Testcontainers for `@SpringBootTest`.
 
-## Smoke
+## Database
 
 ```bash
-curl -i -X POST http://localhost:8080/api/courses \
-  -H 'Content-Type: application/json' \
-  -d '{"title":"","slug":"Bad Slug","level":"EXPERT","published":true}'
-# expect HTTP 400 with $.code == VALIDATION_ERROR
+docker run --rm -d --name tayjava-pg \
+  -e POSTGRES_USER=tayjava -e POSTGRES_PASSWORD=tayjava -e POSTGRES_DB=tayjava \
+  -p 5432:5432 postgres:16-alpine
 ```
+
+Optional: `psql` + `ddl/V1__create_course.sql`.
 
 Run tests: `./mvnw -q test`

@@ -10,8 +10,8 @@ class CourseDtoMappingTest {
 
   @Test
   void fromCopiesApiFieldsAndOmitsCreatedAt() {
-    Course course =
-        new Course(7L, "Spring Boot", "spring-boot", ECourseLevel.BEGINNER, true);
+    Course course = new Course("Spring Boot", "spring-boot", ECourseLevel.BEGINNER, true);
+    course.setId(7L);
 
     CourseResp resp = CourseResp.from(course);
 

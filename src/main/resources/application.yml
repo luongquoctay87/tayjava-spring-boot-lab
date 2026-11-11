@@ -1,6 +1,14 @@
 spring:
   application:
     name: tayjava-spring-boot-lab
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/tayjava}
+    username: ${DB_USERNAME:tayjava}
+    password: ${DB_PASSWORD:tayjava}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
 
 server:
   port: 8080
@@ -9,6 +17,7 @@ logging:
   level:
     root: INFO
     com.tayjava: INFO
+    org.hibernate.SQL: debug
 
 tayjava:
   hello:

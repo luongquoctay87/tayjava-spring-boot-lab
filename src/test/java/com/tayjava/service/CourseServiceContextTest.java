@@ -4,21 +4,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.enums.ECourseLevel;
+import com.tayjava.support.AbstractPostgresIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 
-@SpringBootTest
-class CourseServiceContextTest {
+class CourseServiceContextTest extends AbstractPostgresIntegrationTest {
 
-  @Autowired private CourseService courseService;
+  @Autowired private ApplicationContext context;
 
   @Test
-  void createAndListRoundTrip() {
-    courseService.create(
-        new CourseReq("Spring Boot", "spring-boot-ctx", ECourseLevel.BEGINNER, true));
+  void courseServiceIsOneSharedSingleton() {
+    CourseService first = context.getBean(CourseService.class);
+    CourseService second = context.getBean(CourseService.class);
+    assertThat(first).isSameAs(second);
 
-    assertThat(courseService.list())
-        .anyMatch(c -> "spring-boot-ctx".equals(c.slug()));
+    first.create(
+        new CourseReq(
+            "Spring Boot from zero", "spring-boot-from-zero", ECourseLevel.BEGINNER, true));
+    assertThat(second.list()).extracting(c -> c.slug()).contains("spring-boot-from-zero");
   }
 }
