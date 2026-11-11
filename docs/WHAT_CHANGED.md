@@ -1,6 +1,6 @@
-# lesson-39-env-secrets
+# lesson-40-fat-jar
 
-- **Parent:** `lesson-38-logging`
-- **What changed:** Add `.env.example` (no secrets), require `DB_PASSWORD` in `local`/`prod` profiles, and document never committing `.env`.
+- **Parent:** `lesson-39-env-secrets`
+- **What changed:** Document packaging the Boot executable fat JAR (`./mvnw package` → `java -jar`) with profiles/env; note jarmode layer extract for Docker prep.
 
 Run tests: `./mvnw -q test`

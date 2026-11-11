@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-39-env-secrets` |
-| Parent | `lesson-38-logging` |
-| What changed | Add `.env.example` (no secrets), require `DB_PASSWORD` in `local`/`prod` profiles, and document never committing `.env`. |
+| Branch | `lesson-40-fat-jar` |
+| Parent | `lesson-39-env-secrets` |
+| What changed | Document packaging the Boot executable fat JAR (`./mvnw package` → `java -jar`) with profiles/env; note jarmode layer extract for Docker prep. |
 
 
 ## Database
@@ -63,6 +63,25 @@ cp .env.example .env   # fill DB_PASSWORD for profile local/prod; never commit .
 ```
 
 Default URL: `http://localhost:8080` (profile `local` uses port `8081`)
+
+## Package fat JAR (`java -jar`)
+
+```bash
+./mvnw -DskipTests package
+# artifact: target/tayjava-spring-boot-lab-0.0.1-SNAPSHOT.jar
+# *.jar.original is the thin jar before spring-boot-maven-plugin repackage
+
+export DB_URL='jdbc:postgresql://localhost:5432/tayjava'
+export DB_USERNAME=tayjava
+export DB_PASSWORD=tayjava
+export SPRING_PROFILES_ACTIVE=local
+
+java -jar target/tayjava-spring-boot-lab-0.0.1-SNAPSHOT.jar
+# optional: --server.port=8088
+
+# Docker prep (layers):
+# java -Djarmode=tools -jar target/tayjava-spring-boot-lab-0.0.1-SNAPSHOT.jar extract --layers --launcher
+```
 
 Smoke (expect 201 then 409 `SLUG_TAKEN`):
 
