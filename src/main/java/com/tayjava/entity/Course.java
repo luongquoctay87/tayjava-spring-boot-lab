@@ -4,7 +4,10 @@ import com.tayjava.common.enums.ECourseLevel;
 import java.time.Instant;
 import lombok.Getter;
 
-/** In-memory Course model (JPA annotations arrive in later lessons). */
+/**
+ * Domain Course model. Controllers and JSON contracts use {@code CourseReq}/{@code CourseResp}
+ * only — map manually in the service layer (no JPA annotations yet).
+ */
 @Getter
 public class Course {
 

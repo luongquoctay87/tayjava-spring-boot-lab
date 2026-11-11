@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-22-exception-handler` |
-| Parent | `lesson-21-validation` |
-| What changed | Align package layout with production `e-learning`: `controller` / `service`(+Impl) / `entity` / `common`. `ErrorException` + `ErrorCode` + `GlobalExceptionHandling` → `Resp`. DTOs `CourseReq`/`CourseResp`. Lombok `@RequiredArgsConstructor`. |
+| Branch | `lesson-23-dto-entity` |
+| Parent | `lesson-22-exception-handler` |
+| What changed | Documents the DTO / entity boundary. Controllers speak `CourseReq` / `CourseUpdateReq` / `CourseResp` only. Domain `Course` stays in `entity/`; map by hand with `CourseResp.from` (no MapStruct). |
 
 ## Run (current branch)
 

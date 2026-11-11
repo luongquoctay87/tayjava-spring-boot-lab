@@ -1,7 +1,7 @@
-# lesson-22-exception-handler
+# lesson-23-dto-entity
 
-- **Parent:** `lesson-21-validation`
-- **What changed:** `ErrorException` + `ErrorCode` + `GlobalExceptionHandling` → `Resp` envelope. Controllers return `ResponseEntity<Resp<T>>` via `ApiResp`. Course/Enrollment services throw `ErrorException`. Seed runners stay under `config/`.
+- **Parent:** `lesson-22-exception-handler`
+- **What changed:** Controllers keep DTOs only (`CourseReq`, `CourseUpdateReq`, `CourseResp`). Domain `Course` stays in `entity/`; map manually via `CourseResp.from`. No JPA yet.
 
 ## Smoke
 
