@@ -9,6 +9,7 @@ import com.tayjava.repository.EnrollmentRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,9 +37,20 @@ public class EnrollmentServiceImpl implements EnrollmentService {
       throw new ErrorException(
           ErrorCode.ALREADY_ENROLLED, "Already enrolled in course " + courseId);
     }
-    Enrollment saved = enrollments.save(new Enrollment(course, studentEmail));
-    log.info("Enrolled student={} courseId={}", studentEmail, courseId);
-    return EnrollmentResp.from(saved);
+    try {
+      Enrollment saved = enrollments.saveAndFlush(new Enrollment(course, studentEmail));
+      log.info("Enrolled student={} courseId={}", studentEmail, courseId);
+      return EnrollmentResp.from(saved);
+    } catch (DataIntegrityViolationException ex) {
+      throw new ErrorException(
+          ErrorCode.ALREADY_ENROLLED, "Already enrolled in course " + courseId);
+    }
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public EnrollmentResp get(Long id) {
+    return EnrollmentResp.from(load(id));
   }
 
   @Override
@@ -52,14 +64,17 @@ public class EnrollmentServiceImpl implements EnrollmentService {
   @Override
   @Transactional
   public EnrollmentResp cancel(Long id) {
-    Enrollment enrollment =
-        enrollments
-            .findById(id)
-            .orElseThrow(
-                () ->
-                    new ErrorException(
-                        ErrorCode.ENROLLMENT_NOT_FOUND, "Enrollment not found: " + id));
+    Enrollment enrollment = load(id);
     enrollment.cancel();
     return EnrollmentResp.from(enrollment);
+  }
+
+  private Enrollment load(Long id) {
+    return enrollments
+        .findById(id)
+        .orElseThrow(
+            () ->
+                new ErrorException(
+                    ErrorCode.ENROLLMENT_NOT_FOUND, "Enrollment not found: " + id));
   }
 }

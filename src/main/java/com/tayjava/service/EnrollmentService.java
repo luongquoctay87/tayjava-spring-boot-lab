@@ -7,6 +7,8 @@ public interface EnrollmentService {
 
   EnrollmentResp enroll(Long courseId, String studentEmail);
 
+  EnrollmentResp get(Long id);
+
   List<EnrollmentResp> listByStudent(String studentEmail);
 
   EnrollmentResp cancel(Long id);

@@ -30,6 +30,11 @@ public class EnrollmentController {
     return ApiResp.created(URI.create("/api/enrollments/" + created.id()), created);
   }
 
+  @GetMapping("/api/enrollments/{id}")
+  public ResponseEntity<Resp<EnrollmentResp>> get(@PathVariable Long id) {
+    return ApiResp.ok(enrollmentService.get(id));
+  }
+
   @GetMapping("/api/enrollments")
   public ResponseEntity<Resp<List<EnrollmentResp>>> listByStudent(
       @RequestParam String studentEmail) {

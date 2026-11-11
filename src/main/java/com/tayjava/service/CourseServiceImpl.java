@@ -8,6 +8,7 @@ import com.tayjava.common.enums.ErrorCode;
 import com.tayjava.common.exception.ErrorException;
 import com.tayjava.entity.Course;
 import com.tayjava.repository.CourseRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +66,14 @@ public class CourseServiceImpl implements CourseService {
   @Override
   @Transactional
   public void delete(Long id) {
-    courses.delete(load(id));
+    Course course = load(id);
+    try {
+      courses.delete(course);
+      courses.flush();
+    } catch (DataIntegrityViolationException ex) {
+      throw new ErrorException(
+          ErrorCode.COURSE_HAS_ENROLLMENTS, "Course has enrollments: " + id);
+    }
   }
 
   @Override

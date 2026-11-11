@@ -9,8 +9,8 @@ This repository is a companion for learning — not the TayJava production backe
 ## What you will build
 
 - Layered monolith under package `com.tayjava` (`controller` / `service` / `entity` / `common`)
-- REST API around `Course` and `Enrollment` (in-memory first, then JPA + PostgreSQL)
-- Validation, centralized error handling (`ErrorException` / `Resp`), Flyway migrations, and automated tests on later branches
+- REST API around `Course` and `Enrollment` (JPA + PostgreSQL + Flyway)
+- Validation, centralized error handling (`ErrorException` / `Resp`), and automated tests
 
 ## Tech stack
 
@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-31-flyway` |
-| Parent | `lesson-30-transactional` |
-| What changed | Flyway owns schema via `db/migration/V1__create_course.sql` and `V2__create_enrollment.sql`. `ddl-auto: validate`, `open-in-view: false`. Reference `ddl/` remains for earlier lessons; Flyway is the source of truth here. |
+| Branch | `lesson-32-lab` |
+| Parent | `lesson-31-flyway` |
+| What changed | Stage-3 lab milestone: full Course + Enrollment CRUD with Flyway `V1`/`V2`, `ddl-auto: validate`, `open-in-view: false`. Removes `HelloController` and `CorsConfig`. Enroll uses `saveAndFlush` → `ALREADY_ENROLLED`; delete uses `flush` → `COURSE_HAS_ENROLLMENTS`. Integration test covers happy path plus 404/409. |
 
 
 ## Database
@@ -62,10 +62,14 @@ Flyway runs migrations on startup. Use a fresh database (or drop Hibernate-creat
 
 Default URL: `http://localhost:8080`
 
-Smoke:
+Smoke (expect 201 then 409 `SLUG_TAKEN`):
 
 ```bash
 curl -i -X POST http://localhost:8080/api/courses \
   -H "Content-Type: application/json" \
-  -d '{"title":"Spring Boot from zero","slug":"spring-boot-from-zero","level":"BEGINNER","published":true}'
+  -d '{"title":"Spring Boot from zero","slug":"spring-boot-0","level":"BEGINNER","published":true}'
+
+curl -i -X POST http://localhost:8080/api/courses \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Spring Boot from zero","slug":"spring-boot-0","level":"BEGINNER","published":true}'
 ```

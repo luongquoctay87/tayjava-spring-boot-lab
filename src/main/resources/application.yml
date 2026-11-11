@@ -24,11 +24,5 @@ logging:
     org.hibernate.SQL: debug
 
 tayjava:
-  hello:
-    message: "Hello from tayjava-spring-boot-lab"
   seed:
     enabled: false
-
-elearning:
-  cors:
-    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}

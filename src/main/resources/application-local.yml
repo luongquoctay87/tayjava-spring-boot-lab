@@ -6,7 +6,5 @@ logging:
     com.tayjava: DEBUG
 
 tayjava:
-  hello:
-    message: "Hello from tayjava-spring-boot-lab (local profile)"
   seed:
     enabled: true
