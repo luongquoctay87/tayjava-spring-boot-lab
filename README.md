@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-46-events` |
-| Parent | `lesson-45-cache` |
-| What changed | Publish `StudentEnrolledEvent` from enroll; audit `@EventListener` plus `@TransactionalEventListener(AFTER_COMMIT)` mail listener (async notification). |
+| Branch | `lesson-47-restclient` |
+| Parent | `lesson-46-events` |
+| What changed | Add `spring-boot-starter-restclient`, `HttpClientConfig` timeouts, `CouponClient`, and `@RestClientTest` with MockRestServiceServer. |
 
 
 ## Database

@@ -1,6 +1,6 @@
-# lesson-46-events
+# lesson-47-restclient
 
-- **Parent:** `lesson-45-cache`
-- **What changed:** Publish `StudentEnrolledEvent` from enroll; audit `@EventListener` plus `@TransactionalEventListener(AFTER_COMMIT)` mail listener (async notification).
+- **Parent:** `lesson-46-events`
+- **What changed:** Add `spring-boot-starter-restclient`, `HttpClientConfig` timeouts, `CouponClient`, and `@RestClientTest` with MockRestServiceServer.
 
 Run tests: `./mvnw -q test`

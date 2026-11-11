@@ -46,3 +46,5 @@ logging:
 tayjava:
   seed:
     enabled: false
+  coupon:
+    base-url: ${COUPON_BASE_URL:http://127.0.0.1:9}
