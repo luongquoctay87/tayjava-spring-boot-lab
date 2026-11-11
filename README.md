@@ -8,9 +8,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 ## What you will build
 
-- A modular monolith under package `com.tayjava.elearning`
+- Layered monolith under package `com.tayjava` (`controller` / `service` / `entity` / `common`)
 - REST API around `Course` and `Enrollment` (in-memory first, then JPA + PostgreSQL)
-- Validation, centralized error handling (`ProblemDetail`), Flyway migrations, and automated tests on later branches
+- Validation, centralized error handling (`ErrorException` / `Resp`), Flyway migrations, and automated tests on later branches
 
 ## Tech stack
 
@@ -29,9 +29,17 @@ This repository is a companion for learning — not the TayJava production backe
 | | |
 |---|---|
 | Group / artifact | `com.tayjava` / `tayjava-spring-boot-lab` |
-| Main class | `com.tayjava.elearning.ElearningApiApplication` |
+| Main class | `com.tayjava.TayJavApplication` |
 | Default branch | `master` — lesson 05 skeleton |
 | License | MIT |
+
+## This branch
+
+| | |
+|---|---|
+| Branch | `master` |
+| Parent | `—` |
+| What changed | Base skeleton: `pom.xml`, `TayJavApplication`, `application.yml` on port **8080**. |
 
 ## Run (current branch)
 
@@ -43,3 +51,4 @@ This repository is a companion for learning — not the TayJava production backe
 Default URL: `http://localhost:8080`
 
 On `master` the app starts with no business HTTP API yet. Switch to a lesson branch (for example `lesson-08-hello` or `lesson-16-rest-memory`) to match the article you are following, then run the same commands.
+

@@ -1,4 +1,4 @@
-package com.tayjava.elearning;
+package com.tayjava;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Lesson branches grow from {@code master} (lesson 05 skeleton).
  */
 @SpringBootApplication
-public class ElearningApiApplication {
+public class TayJavApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ElearningApiApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(TayJavApplication.class, args);
+  }
 }
