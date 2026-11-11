@@ -1,6 +1,6 @@
-# lesson-45-cache
+# lesson-46-events
 
-- **Parent:** `lesson-44-async`
-- **What changed:** Enable Caffeine cache (`spring-boot-starter-cache`) with `@Cacheable` on course list/get and `@CacheEvict` on create/update/delete.
+- **Parent:** `lesson-45-cache`
+- **What changed:** Publish `StudentEnrolledEvent` from enroll; audit `@EventListener` plus `@TransactionalEventListener(AFTER_COMMIT)` mail listener (async notification).
 
 Run tests: `./mvnw -q test`

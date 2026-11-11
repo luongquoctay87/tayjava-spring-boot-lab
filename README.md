@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-45-cache` |
-| Parent | `lesson-44-async` |
-| What changed | Enable Caffeine cache (`spring-boot-starter-cache`) with `@Cacheable` on course list/get and `@CacheEvict` on create/update/delete. |
+| Branch | `lesson-46-events` |
+| Parent | `lesson-45-cache` |
+| What changed | Publish `StudentEnrolledEvent` from enroll; audit `@EventListener` plus `@TransactionalEventListener(AFTER_COMMIT)` mail listener (async notification). |
 
 
 ## Database

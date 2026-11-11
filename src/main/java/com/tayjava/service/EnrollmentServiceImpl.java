@@ -4,11 +4,13 @@ import com.tayjava.common.dto.enrollment.EnrollmentResp;
 import com.tayjava.common.enums.ErrorCode;
 import com.tayjava.common.exception.ErrorException;
 import com.tayjava.entity.Course;
+import com.tayjava.event.StudentEnrolledEvent;
 import com.tayjava.entity.Enrollment;
 import com.tayjava.repository.EnrollmentRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +26,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
   private final EnrollmentRepository enrollments;
   private final CourseService courseService;
-  private final EnrollmentNotificationService notificationService;
+  private final ApplicationEventPublisher events;
 
   @Override
   @Transactional
@@ -41,10 +43,9 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
     try {
       Enrollment saved = enrollments.saveAndFlush(new Enrollment(course, studentEmail));
-      EnrollmentResp response = EnrollmentResp.from(saved);
-      notificationService.sendEnrollmentConfirmation(response.id(), studentEmail);
+      events.publishEvent(new StudentEnrolledEvent(saved.getId(), courseId, studentEmail));
       log.info("Enrolled student={} courseId={}", studentEmail, courseId);
-      return response;
+      return EnrollmentResp.from(saved);
     } catch (DataIntegrityViolationException ex) {
       throw new ErrorException(
           ErrorCode.ALREADY_ENROLLED, "Already enrolled in course " + courseId);
