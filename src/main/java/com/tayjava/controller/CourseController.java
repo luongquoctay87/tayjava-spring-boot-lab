@@ -1,6 +1,7 @@
 package com.tayjava.controller;
 
 import com.tayjava.common.dto.ApiResp;
+import com.tayjava.common.dto.PageResp;
 import com.tayjava.common.dto.Resp;
 import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.dto.course.CourseResp;
@@ -8,8 +9,9 @@ import com.tayjava.common.dto.course.CourseUpdateReq;
 import com.tayjava.service.CourseService;
 import jakarta.validation.Valid;
 import java.net.URI;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +30,9 @@ public class CourseController {
   private final CourseService courseService;
 
   @GetMapping
-  public ResponseEntity<Resp<List<CourseResp>>> list() {
-    return ApiResp.ok(courseService.list());
+  public ResponseEntity<Resp<PageResp<CourseResp>>> list(
+      @PageableDefault(size = 20) Pageable pageable) {
+    return ApiResp.ok(courseService.list(pageable));
   }
 
   @GetMapping("/{id}")

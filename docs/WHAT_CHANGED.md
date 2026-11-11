@@ -1,6 +1,6 @@
-# lesson-28-query-methods
+# lesson-29-pageable
 
-- **Parent:** `lesson-27-jpa-relations`
-- **What changed:** Query methods / `@Query` on Course and Enrollment repositories; `CourseSummary` projection; join fetch / EntityGraph.
+- **Parent:** `lesson-28-query-methods`
+- **What changed:** Pageable list API via `PageResp`; sanitize sort; `spring.data.web.pageable.max-page-size=50`.
 
 Run tests: `./mvnw -q test`

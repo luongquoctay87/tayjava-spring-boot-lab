@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-28-query-methods` |
-| Parent | `lesson-27-jpa-relations` |
-| What changed | Spring Data query methods, `@Query` (JPQL + native), constructor projection `CourseSummary`, `@Modifying`, and Enrollment `join fetch` / `@EntityGraph`. |
+| Branch | `lesson-29-pageable` |
+| Parent | `lesson-28-query-methods` |
+| What changed | `GET /api/courses` returns `Resp<PageResp<CourseResp>>` with sanitized `Pageable` (max size 50). Repository adds paged `search` / `Slice`. |
 
 
 ## Database

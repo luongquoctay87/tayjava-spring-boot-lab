@@ -1,5 +1,6 @@
 package com.tayjava.service;
 
+import com.tayjava.common.dto.PageResp;
 import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.dto.course.CourseResp;
 import com.tayjava.common.dto.course.CourseUpdateReq;
@@ -7,9 +8,12 @@ import com.tayjava.common.enums.ErrorCode;
 import com.tayjava.common.exception.ErrorException;
 import com.tayjava.entity.Course;
 import com.tayjava.repository.CourseRepository;
-import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +22,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j(topic = "CourseService")
 public class CourseServiceImpl implements CourseService {
 
+  private static final Set<String> SORTABLE = Set.of("createdAt", "title");
+
   private final CourseRepository courses;
 
   @Override
   @Transactional(readOnly = true)
-  public List<CourseResp> list() {
-    return courses.findAll().stream().map(CourseResp::from).toList();
+  public PageResp<CourseResp> list(Pageable pageable) {
+    return PageResp.from(courses.findAll(sanitize(pageable)).map(CourseResp::from));
   }
 
   @Override
@@ -65,5 +71,17 @@ public class CourseServiceImpl implements CourseService {
         .findById(id)
         .orElseThrow(
             () -> new ErrorException(ErrorCode.COURSE_NOT_FOUND, "Course not found: " + id));
+  }
+
+  private Pageable sanitize(Pageable pageable) {
+    Sort sort =
+        Sort.by(
+            pageable.getSort().stream()
+                .filter(order -> SORTABLE.contains(order.getProperty()))
+                .toList());
+    if (sort.isUnsorted()) {
+      sort = Sort.by(Sort.Direction.DESC, "createdAt");
+    }
+    return PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
   }
 }

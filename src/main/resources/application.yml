@@ -1,6 +1,10 @@
 spring:
   application:
     name: tayjava-spring-boot-lab
+  data:
+    web:
+      pageable:
+        max-page-size: 50
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/tayjava}
     username: ${DB_USERNAME:tayjava}

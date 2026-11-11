@@ -1,8 +1,8 @@
 package com.tayjava.config;
 
-import com.tayjava.service.CourseService;
 import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.enums.ECourseLevel;
+import com.tayjava.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -10,6 +10,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,7 +25,7 @@ public class LocalCourseSeeder implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) {
-    if (!courseService.list().isEmpty()) {
+    if (courseService.list(Pageable.ofSize(1)).getTotalElements() > 0) {
       log.info("Courses already exist, skipping demo seed");
       return;
     }
@@ -40,6 +41,6 @@ public class LocalCourseSeeder implements ApplicationRunner {
             "spring-security-in-practice",
             ECourseLevel.INTERMEDIATE,
             false));
-    log.info("Seeded {} demo courses", courseService.list().size());
+    log.info("Seeded demo courses");
   }
 }

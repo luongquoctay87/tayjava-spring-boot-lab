@@ -8,6 +8,7 @@ import com.tayjava.support.AbstractPostgresIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Pageable;
 
 class CourseServiceContextTest extends AbstractPostgresIntegrationTest {
 
@@ -22,6 +23,8 @@ class CourseServiceContextTest extends AbstractPostgresIntegrationTest {
     first.create(
         new CourseReq(
             "Spring Boot from zero", "spring-boot-from-zero", ECourseLevel.BEGINNER, true));
-    assertThat(second.list()).extracting(c -> c.slug()).contains("spring-boot-from-zero");
+    assertThat(second.list(Pageable.unpaged()).getData())
+        .extracting(c -> c.slug())
+        .contains("spring-boot-from-zero");
   }
 }

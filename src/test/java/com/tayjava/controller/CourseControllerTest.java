@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.tayjava.common.dto.PageResp;
 import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.dto.course.CourseResp;
 import com.tayjava.common.dto.course.CourseUpdateReq;
@@ -21,6 +22,7 @@ import com.tayjava.common.exception.ErrorException;
 import com.tayjava.common.exception.GlobalExceptionHandling;
 import com.tayjava.service.CourseService;
 import java.util.List;
+import org.springframework.data.domain.Pageable;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -39,15 +41,24 @@ class CourseControllerTest {
 
   @Test
   void listReturnsCourses() throws Exception {
-    when(courseService.list())
+    when(courseService.list(org.mockito.ArgumentMatchers.any(Pageable.class)))
         .thenReturn(
-            List.of(new CourseResp(1L, "Spring Boot", "spring-boot", ECourseLevel.BEGINNER, true)));
+            PageResp.<CourseResp>builder()
+                .pageNumber(0)
+                .pageSize(20)
+                .totalPages(1)
+                .totalElements(1)
+                .data(
+                    List.of(
+                        new CourseResp(
+                            1L, "Spring Boot", "spring-boot", ECourseLevel.BEGINNER, true)))
+                .build());
 
     mockMvc
         .perform(get("/api/courses"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.success").value(true))
-        .andExpect(jsonPath("$.data[0].slug").value("spring-boot"));
+        .andExpect(jsonPath("$.data.data[0].slug").value("spring-boot"));
   }
 
   @Test

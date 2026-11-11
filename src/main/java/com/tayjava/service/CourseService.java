@@ -1,14 +1,15 @@
 package com.tayjava.service;
 
+import com.tayjava.common.dto.PageResp;
 import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.dto.course.CourseResp;
 import com.tayjava.common.dto.course.CourseUpdateReq;
 import com.tayjava.entity.Course;
-import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 public interface CourseService {
 
-  List<CourseResp> list();
+  PageResp<CourseResp> list(Pageable pageable);
 
   CourseResp get(Long id);
 
