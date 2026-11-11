@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-38-logging` |
-| Parent | `lesson-37-actuator` |
-| What changed | Add `RequestIdFilter` (MDC `requestId` + `X-Request-Id`), console pattern with `%X{requestId}`, quieter Hibernate SQL, and lean `application-prod.yml` logging. |
+| Branch | `lesson-39-env-secrets` |
+| Parent | `lesson-38-logging` |
+| What changed | Add `.env.example` (no secrets), require `DB_PASSWORD` in `local`/`prod` profiles, and document never committing `.env`. |
 
 
 ## Database
@@ -56,11 +56,13 @@ Flyway runs migrations on startup. Use a fresh database (or drop Hibernate-creat
 ## Run (current branch)
 
 ```bash
+cp .env.example .env   # fill DB_PASSWORD for profile local/prod; never commit .env
 ./mvnw -q test
 ./mvnw spring-boot:run
+# or: SPRING_PROFILES_ACTIVE=local DB_PASSWORD=tayjava ./mvnw spring-boot:run
 ```
 
-Default URL: `http://localhost:8080`
+Default URL: `http://localhost:8080` (profile `local` uses port `8081`)
 
 Smoke (expect 201 then 409 `SLUG_TAKEN`):
 

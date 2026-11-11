@@ -1,6 +1,10 @@
 server:
   port: 8081
 
+spring:
+  datasource:
+    password: ${DB_PASSWORD}
+
 logging:
   level:
     com.tayjava: DEBUG

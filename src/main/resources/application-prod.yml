@@ -1,3 +1,7 @@
+spring:
+  datasource:
+    password: ${DB_PASSWORD}
+
 logging:
   level:
     root: WARN
