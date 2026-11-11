@@ -1,6 +1,6 @@
-# lesson-30-transactional
+# lesson-31-flyway
 
-- **Parent:** `lesson-29-pageable`
-- **What changed:** Documents `@Transactional` on Course/Enrollment services. No production behavior change beyond clarifying the transaction boundary.
+- **Parent:** `lesson-30-transactional`
+- **What changed:** Flyway migrations under `src/main/resources/db/migration/`; `ddl-auto: validate`. Reference `ddl/` kept.
 
 Run tests: `./mvnw -q test`

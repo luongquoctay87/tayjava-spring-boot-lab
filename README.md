@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-30-transactional` |
-| Parent | `lesson-29-pageable` |
-| What changed | Documents `@Transactional` boundaries already on Course/Enrollment services (`readOnly` for reads; rollback for unchecked exceptions). Services remain the transaction boundary — no self-invocation. |
+| Branch | `lesson-31-flyway` |
+| Parent | `lesson-30-transactional` |
+| What changed | Flyway owns schema via `db/migration/V1__create_course.sql` and `V2__create_enrollment.sql`. `ddl-auto: validate`, `open-in-view: false`. Reference `ddl/` remains for earlier lessons; Flyway is the source of truth here. |
 
 
 ## Database
@@ -50,7 +50,7 @@ docker run --rm -d --name tayjava-pg \
   -p 5432:5432 postgres:16-alpine
 ```
 
-Optional manual DDL (Hibernate `ddl-auto=update` also creates the table): `psql` against the DB and apply `ddl/V1__create_course.sql`.
+Flyway runs migrations on startup. Use a fresh database (or drop Hibernate-created tables) so `V1`/`V2` apply cleanly. `ddl/` copies remain as reference only.
 
 
 ## Run (current branch)
