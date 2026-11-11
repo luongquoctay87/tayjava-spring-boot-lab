@@ -13,3 +13,5 @@ logging:
 tayjava:
   hello:
     message: "Hello from tayjava-spring-boot-lab"
+  seed:
+    enabled: false
