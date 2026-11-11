@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ClockDemoController {
 
-    public record ClockSample(
-            Instant instant,
-            LocalDate date,
-            LocalDateTime localDateTime,
-            Duration ttl,
-            @JsonFormat(pattern = "dd/MM/yyyy") LocalDate displayDate) {}
+  public record ClockSample(
+      Instant instant,
+      LocalDate date,
+      LocalDateTime localDateTime,
+      Duration ttl,
+      @JsonFormat(pattern = "dd/MM/yyyy") LocalDate displayDate) {}
 
-    @GetMapping("/demo/clock")
-    public ClockSample clock() {
-        LocalDate date = LocalDate.of(2026, 11, 10);
-        return new ClockSample(
-                Instant.parse("2026-11-09T20:15:30.123456Z"),
-                date,
-                LocalDateTime.of(2026, 11, 10, 3, 15, 30),
-                Duration.ofMinutes(5),
-                date);
-    }
+  @GetMapping("/demo/clock")
+  public ClockSample clock() {
+    LocalDate date = LocalDate.of(2026, 11, 10);
+    return new ClockSample(
+        Instant.parse("2026-11-09T20:15:30.123456Z"),
+        date,
+        LocalDateTime.of(2026, 11, 10, 3, 15, 30),
+        Duration.ofMinutes(5),
+        date);
+  }
 }

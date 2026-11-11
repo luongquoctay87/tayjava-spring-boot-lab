@@ -7,12 +7,13 @@
 | Branch | `demo/lesson-19-jackson` |
 | Parent | `master` |
 | Package | `com.tayjava.demo` |
+| Entry | `com.tayjava.TayJavApplication` |
 
 ## What changed
 
 - `ClockDemoController` — Jackson 3 Java Time + `@JsonFormat` (`GET /demo/clock`)
 - `SnakeCourseId` — `@JsonProperty("course_id")` renaming pitfall
-- Temporary `@Import(ClockDemoController.class)` on `ElearningApiApplication`
+- Demo components live under `com.tayjava.demo` and are scanned by `TayJavApplication`
 
 ## Run / test
 
