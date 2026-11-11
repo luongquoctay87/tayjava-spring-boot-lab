@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: tayjava-spring-boot-lab
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.tayjava.elearning: INFO
