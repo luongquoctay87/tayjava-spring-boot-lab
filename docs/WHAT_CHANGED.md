@@ -1,6 +1,6 @@
-# lesson-48-virtual-threads
+# lesson-50-capstone
 
-- **Parent:** `lesson-47-restclient`
-- **What changed:** Add profile `application-virtual.yml` (`spring.threads.virtual.enabled=true`) and switch `enrollmentExecutor` to `newVirtualThreadPerTaskExecutor()`.
+- **Parent:** `lesson-48-virtual-threads`
+- **What changed:** Capstone self-check on the continuous app — `docs/CAPSTONE_CHECKLIST.md`; no `HelloController` / `CorsConfig`; Hikari pool size set.
 
 Run tests: `./mvnw -q test`

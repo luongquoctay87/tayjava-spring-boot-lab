@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-48-virtual-threads` |
-| Parent | `lesson-47-restclient` |
-| What changed | Add profile `application-virtual.yml` (`spring.threads.virtual.enabled=true`) and switch `enrollmentExecutor` to `newVirtualThreadPerTaskExecutor()`. |
+| Branch | `lesson-50-capstone` |
+| Parent | `lesson-48-virtual-threads` |
+| What changed | Capstone self-check on the continuous app — `docs/CAPSTONE_CHECKLIST.md`; no `HelloController` / `CorsConfig`; Hikari pool size set. |
 
 
 ## Database
