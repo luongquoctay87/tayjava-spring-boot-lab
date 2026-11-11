@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-29-pageable` |
-| Parent | `lesson-28-query-methods` |
-| What changed | `GET /api/courses` returns `Resp<PageResp<CourseResp>>` with sanitized `Pageable` (max size 50). Repository adds paged `search` / `Slice`. |
+| Branch | `lesson-30-transactional` |
+| Parent | `lesson-29-pageable` |
+| What changed | Documents `@Transactional` boundaries already on Course/Enrollment services (`readOnly` for reads; rollback for unchecked exceptions). Services remain the transaction boundary — no self-invocation. |
 
 
 ## Database

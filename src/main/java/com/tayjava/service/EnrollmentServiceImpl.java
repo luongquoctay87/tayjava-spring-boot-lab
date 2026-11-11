@@ -12,6 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service transaction boundary (lesson 30): read methods use {@code readOnly=true}; writes roll
+ * back on unchecked {@link com.tayjava.common.exception.ErrorException}.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j(topic = "EnrollmentService")

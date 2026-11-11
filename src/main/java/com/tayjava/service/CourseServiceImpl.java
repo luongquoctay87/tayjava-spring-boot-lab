@@ -17,6 +17,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service transaction boundary (lesson 30): read methods use {@code readOnly=true}; writes roll
+ * back on unchecked {@link com.tayjava.common.exception.ErrorException}.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j(topic = "CourseService")

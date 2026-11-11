@@ -1,6 +1,6 @@
-# lesson-29-pageable
+# lesson-30-transactional
 
-- **Parent:** `lesson-28-query-methods`
-- **What changed:** Pageable list API via `PageResp`; sanitize sort; `spring.data.web.pageable.max-page-size=50`.
+- **Parent:** `lesson-29-pageable`
+- **What changed:** Documents `@Transactional` on Course/Enrollment services. No production behavior change beyond clarifying the transaction boundary.
 
 Run tests: `./mvnw -q test`
