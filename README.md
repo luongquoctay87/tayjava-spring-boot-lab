@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-27-jpa-relations` |
-| Parent | `lesson-26-jpa` |
-| What changed | JPA `Enrollment` with `@ManyToOne` Course (LAZY) and unique `(course_id, student_email)`. `EnrollmentController` + `EnrollReq` / `EnrollmentResp`. Reference `ddl/V2__create_enrollment.sql`. |
+| Branch | `lesson-28-query-methods` |
+| Parent | `lesson-27-jpa-relations` |
+| What changed | Spring Data query methods, `@Query` (JPQL + native), constructor projection `CourseSummary`, `@Modifying`, and Enrollment `join fetch` / `@EntityGraph`. |
 
 
 ## Database

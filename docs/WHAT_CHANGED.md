@@ -1,6 +1,6 @@
-# lesson-27-jpa-relations
+# lesson-28-query-methods
 
-- **Parent:** `lesson-26-jpa`
-- **What changed:** `Enrollment` entity + repository; unique constraint; enroll / list / cancel endpoints returning `Resp`. Reference `ddl/V2__create_enrollment.sql`.
+- **Parent:** `lesson-27-jpa-relations`
+- **What changed:** Query methods / `@Query` on Course and Enrollment repositories; `CourseSummary` projection; join fetch / EntityGraph.
 
 Run tests: `./mvnw -q test`
