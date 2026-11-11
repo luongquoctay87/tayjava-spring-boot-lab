@@ -74,6 +74,9 @@ public class CourseServiceImpl implements CourseService {
   }
 
   private Pageable sanitize(Pageable pageable) {
+    if (!pageable.isPaged()) {
+      return pageable;
+    }
     Sort sort =
         Sort.by(
             pageable.getSort().stream()
