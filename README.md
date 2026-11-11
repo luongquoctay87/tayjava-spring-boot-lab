@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-06-pom` |
-| Parent | `master` |
-| What changed | Clarify Maven starters and lab source tree in `pom.xml` comments + `docs/WHAT_CHANGED.md`. |
+| Branch | `lesson-07-config` |
+| Parent | `lesson-06-pom` |
+| What changed | `application.yml` + `application-local.yml` with profile `local` (port 8081). |
 
 ## Run (current branch)
 

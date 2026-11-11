@@ -1,23 +1,16 @@
-# lesson-06-pom
+# lesson-07-config
 
-- **Parent:** `master` (lesson 05)
-- **What changed:** Clarified Maven layout and Spring Boot starters in `pom.xml` comments; documented the continuous lab tree for readers.
+- **Parent:** `lesson-06-pom`
+- **What changed:** Added `application-local.yml` (port 8081, DEBUG logging) and `tayjava.hello.message`. Profile `local` verified by test.
 
-## Maven tree (standard)
+## Smoke
 
-```text
-src/main/java          application sources (com.tayjava)
-src/main/resources     application.yml and static config
-src/test/java          tests mirroring main packages
-pom.xml                coordinates, parent BOM, starters, plugins
+```bash
+./mvnw spring-boot:run
+# default profile → http://localhost:8080
+
+./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+# local profile → http://localhost:8081
 ```
 
-## Starters on the classpath
-
-| Dependency | Role |
-|---|---|
-| `spring-boot-starter-webmvc` | Spring MVC + embedded Tomcat + Jackson |
-| `spring-boot-starter-validation` | Bean Validation (used from later lessons) |
-| `spring-boot-starter-webmvc-test` (test) | `@SpringBootTest`, MockMvc slices |
-
-Run: `./mvnw -q test` then `./mvnw spring-boot:run` (port **8080**).
+Run tests: `./mvnw -q test`

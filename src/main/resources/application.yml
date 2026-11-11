@@ -9,3 +9,7 @@ logging:
   level:
     root: INFO
     com.tayjava: INFO
+
+tayjava:
+  hello:
+    message: "Hello from tayjava-spring-boot-lab"
