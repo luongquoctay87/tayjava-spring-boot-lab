@@ -1,6 +1,6 @@
-# lesson-43-scheduled
+# lesson-44-async
 
-- **Parent:** `lesson-41-docker`
-- **What changed:** Enable `@EnableScheduling` and add `EnrollmentStatsJob` (`@Scheduled` fixedDelay) logging ACTIVE/CANCELLED counts; `countByStatus` on the repository.
+- **Parent:** `lesson-43-scheduled`
+- **What changed:** Enable `@Async` with named `enrollmentExecutor`, add `EnrollmentNotificationService`, and call it after a successful enroll.
 
 Run tests: `./mvnw -q test`

@@ -24,6 +24,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
   private final EnrollmentRepository enrollments;
   private final CourseService courseService;
+  private final EnrollmentNotificationService notificationService;
 
   @Override
   @Transactional
@@ -40,8 +41,10 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
     try {
       Enrollment saved = enrollments.saveAndFlush(new Enrollment(course, studentEmail));
+      EnrollmentResp response = EnrollmentResp.from(saved);
+      notificationService.sendEnrollmentConfirmation(response.id(), studentEmail);
       log.info("Enrolled student={} courseId={}", studentEmail, courseId);
-      return EnrollmentResp.from(saved);
+      return response;
     } catch (DataIntegrityViolationException ex) {
       throw new ErrorException(
           ErrorCode.ALREADY_ENROLLED, "Already enrolled in course " + courseId);
