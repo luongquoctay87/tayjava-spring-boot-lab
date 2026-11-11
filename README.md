@@ -1,4 +1,4 @@
-# tayjava-spring-boot-lab
+# TayJava Spring Boot Lab
 
 Sample Spring Boot application that grows with the **TayJava Spring Boot** article series.
 
