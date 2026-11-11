@@ -1,6 +1,6 @@
-# lesson-32-lab
+# lesson-34-mockmvc
 
-- **Parent:** `lesson-31-flyway`
-- **What changed:** Lab milestone — remove Hello/Cors; enroll `saveAndFlush` → `ALREADY_ENROLLED`; delete flush → `COURSE_HAS_ENROLLMENTS`; `GET /api/enrollments/{id}`; IT covers CRUD + 404/409.
+- **Parent:** `lesson-32-lab`
+- **What changed:** Focus `@WebMvcTest` / MockMvc for `CourseController` and `EnrollmentController`: `@MockitoBean` services, assert 201/`Location`, validation `VALIDATION_ERROR`, and `ErrorException` → `Resp` (`ALREADY_ENROLLED`) without a database. No production code change.
 
 Run tests: `./mvnw -q test`

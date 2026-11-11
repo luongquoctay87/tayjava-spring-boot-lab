@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-32-lab` |
-| Parent | `lesson-31-flyway` |
-| What changed | Stage-3 lab milestone: full Course + Enrollment CRUD with Flyway `V1`/`V2`, `ddl-auto: validate`, `open-in-view: false`. Removes `HelloController` and `CorsConfig`. Enroll uses `saveAndFlush` → `ALREADY_ENROLLED`; delete uses `flush` → `COURSE_HAS_ENROLLMENTS`. Integration test covers happy path plus 404/409. |
+| Branch | `lesson-34-mockmvc` |
+| Parent | `lesson-32-lab` |
+| What changed | Focus `@WebMvcTest` / MockMvc for `CourseController` and `EnrollmentController`: `@MockitoBean` services, assert 201/`Location`, validation `VALIDATION_ERROR`, and `ErrorException` → `Resp` (`ALREADY_ENROLLED`) without a database. No production code change. |
 
 
 ## Database
