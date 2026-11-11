@@ -8,6 +8,8 @@ import com.tayjava.common.enums.ErrorCode;
 import com.tayjava.common.exception.ErrorException;
 import com.tayjava.entity.Course;
 import com.tayjava.repository.CourseRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -32,18 +34,21 @@ public class CourseServiceImpl implements CourseService {
   private final CourseRepository courses;
 
   @Override
+  @Cacheable(cacheNames = "coursesList")
   @Transactional(readOnly = true)
   public PageResp<CourseResp> list(Pageable pageable) {
     return PageResp.from(courses.findAll(sanitize(pageable)).map(CourseResp::from));
   }
 
   @Override
+  @Cacheable(cacheNames = "courses", key = "#id")
   @Transactional(readOnly = true)
   public CourseResp get(Long id) {
     return CourseResp.from(load(id));
   }
 
   @Override
+  @CacheEvict(cacheNames = {"courses", "coursesList"}, allEntries = true)
   @Transactional
   public CourseResp create(CourseReq req) {
     if (courses.existsBySlug(req.slug())) {
@@ -56,6 +61,7 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
+  @CacheEvict(cacheNames = {"courses", "coursesList"}, allEntries = true)
   @Transactional
   public CourseResp update(Long id, CourseUpdateReq req) {
     Course course = load(id);
@@ -64,6 +70,7 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
+  @CacheEvict(cacheNames = {"courses", "coursesList"}, allEntries = true)
   @Transactional
   public void delete(Long id) {
     Course course = load(id);

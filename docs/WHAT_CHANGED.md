@@ -1,6 +1,6 @@
-# lesson-44-async
+# lesson-45-cache
 
-- **Parent:** `lesson-43-scheduled`
-- **What changed:** Enable `@Async` with named `enrollmentExecutor`, add `EnrollmentNotificationService`, and call it after a successful enroll.
+- **Parent:** `lesson-44-async`
+- **What changed:** Enable Caffeine cache (`spring-boot-starter-cache`) with `@Cacheable` on course list/get and `@CacheEvict` on create/update/delete.
 
 Run tests: `./mvnw -q test`

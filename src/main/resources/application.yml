@@ -13,6 +13,10 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: validate
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=10m
 
 server:
   port: 8080
