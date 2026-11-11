@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoHelloController {
 
-    @GetMapping("/api/hello")
-    public Map<String, String> hello() {
-        return Map.of("message", "Hello from request lifecycle demo");
-    }
+  @GetMapping("/api/hello")
+  public Map<String, String> hello() {
+    return Map.of("message", "Hello from request lifecycle demo");
+  }
 }

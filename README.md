@@ -7,10 +7,11 @@
 | Branch | `demo/lesson-15-request-lifecycle` |
 | Parent | `master` |
 | Package | `com.tayjava.demo` |
+| Entry | `com.tayjava.TayJavApplication` |
 
 ## What changed
 
-Temporary filter + interceptor + hello endpoint, imported on `ElearningApiApplication`:
+Temporary filter + interceptor + hello endpoint under `com.tayjava.demo` (scanned by `TayJavApplication`):
 
 - `RequestTimingFilter` — servlet filter (before/after DispatcherServlet)
 - `HandlerLoggingInterceptor` + `DemoWebConfig`

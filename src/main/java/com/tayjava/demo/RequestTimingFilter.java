@@ -5,8 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,21 +14,20 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * Temporary demo — not kept on lab/capstone project branches.
  */
 @Component
+@Slf4j(topic = "RequestTimingFilter")
 public class RequestTimingFilter extends OncePerRequestFilter {
 
-    private static final Logger log = LoggerFactory.getLogger(RequestTimingFilter.class);
-
-    @Override
-    protected void doFilterInternal(
-            HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-            throws ServletException, IOException {
-        long start = System.nanoTime();
-        log.info("filter before: {} {}", request.getMethod(), request.getRequestURI());
-        try {
-            chain.doFilter(request, response);
-        } finally {
-            long tookMs = (System.nanoTime() - start) / 1_000_000;
-            log.info("filter after: status={} took={}ms", response.getStatus(), tookMs);
-        }
+  @Override
+  protected void doFilterInternal(
+      HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+      throws ServletException, IOException {
+    long start = System.nanoTime();
+    log.info("filter before: {} {}", request.getMethod(), request.getRequestURI());
+    try {
+      chain.doFilter(request, response);
+    } finally {
+      long tookMs = (System.nanoTime() - start) / 1_000_000;
+      log.info("filter after: status={} took={}ms", response.getStatus(), tookMs);
     }
+  }
 }
