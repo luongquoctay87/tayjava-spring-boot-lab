@@ -1,13 +1,17 @@
 package com.tayjava.elearning;
 
+import com.tayjava.demo.DemoEnrollmentService;
+import com.tayjava.demo.TimingAspect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
 /**
- * Entry point for the TayJava Spring Boot lab (Course / Enrollment series).
- * Lesson branches grow from {@code master} (lesson 05 skeleton).
+ * Side-branch host: temporarily imports AOP demo components.
+ * Do not merge into the Course API project line / lab / capstone.
  */
 @SpringBootApplication
+@Import({TimingAspect.class, DemoEnrollmentService.class})
 public class ElearningApiApplication {
 
     public static void main(String[] args) {
