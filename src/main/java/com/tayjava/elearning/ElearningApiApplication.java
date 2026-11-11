@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Entry point for the TayJava Spring Boot lab (Course / Enrollment series).
- * Lesson branches grow from {@code master} (lesson 05 skeleton).
+ * Side-branch demo host for anti-pattern examples under {@code com.tayjava.demo}.
+ * Do not merge into the Course API project line.
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.tayjava.elearning", "com.tayjava.demo"})
 public class ElearningApiApplication {
 
     public static void main(String[] args) {
