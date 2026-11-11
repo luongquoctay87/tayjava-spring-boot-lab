@@ -1,61 +1,45 @@
 # tayjava-spring-boot-lab
 
-Production-shaped companion lab for the TayJava **Spring Boot** series  
-(Java **21** · Spring Boot **4.0.9** · package `com.tayjava.elearning`).
+Sample Spring Boot application that grows with the **TayJava Spring Boot** article series.
 
-## Model
+Readers build one continuous app while learning Spring Boot: from a bare project, through REST APIs for **Course** and **Enrollment**, to JPA, PostgreSQL, Flyway, tests, and a small production checklist. Each lesson that changes the code has a matching **git branch** so you can check out the state that matches the article.
 
-One continuous application. Each lesson with code is a **git branch** created from the previous lesson branch (delta only — not a disconnected copy).
+This repository is a companion for learning — not the TayJava production backend.
+
+## What you will build
+
+- A modular monolith under package `com.tayjava.elearning`
+- REST API around `Course` and `Enrollment` (in-memory first, then JPA + PostgreSQL)
+- Validation, centralized error handling (`ProblemDetail`), Flyway migrations, and automated tests on later branches
+
+## Tech stack
+
+| Area | Choice |
+|------|--------|
+| Language | Java 21 |
+| Framework | Spring Boot 4.0.9 |
+| Web | Spring MVC (`spring-boot-starter-webmvc`) |
+| Validation | Bean Validation (`spring-boot-starter-validation`) |
+| Build | Maven 3.9+ via Maven Wrapper (`./mvnw`) |
+| Persistence (later lessons) | Spring Data JPA, PostgreSQL, Flyway |
+| Tests | JUnit 5, Spring Boot test slices / Testcontainers (later lessons) |
+
+## Project coordinates
 
 | | |
 |---|---|
-| **Repo** | https://github.com/luongquoctay87/tayjava-spring-boot-lab |
-| **Default branch** | `master` = lesson 05 skeleton |
-| **License** | MIT |
-| **Lesson map** | TayJava monorepo → `blogs/java/spring-boot/lab-samples-map.md` |
-| **Code standard** | `ai-rules/tayjava-java-code.mdc` |
+| Group / artifact | `com.tayjava` / `tayjava-spring-boot-lab` |
+| Main class | `com.tayjava.elearning.ElearningApiApplication` |
+| Default branch | `master` — lesson 05 skeleton |
+| License | MIT |
 
-```text
-master (lesson 05)
-  └─ lesson-06-pom → … → lesson-50-capstone
-```
-
-## Requirements
-
-- JDK 21+
-- Maven Wrapper (`./mvnw`) — no global Maven required
-
-## Quick start (`master` / lesson 05)
+## Run (current branch)
 
 ```bash
-git clone https://github.com/luongquoctay87/tayjava-spring-boot-lab.git
-cd tayjava-spring-boot-lab
-git checkout master
 ./mvnw -q test
 ./mvnw spring-boot:run
 ```
 
-Server: `http://localhost:8080`  
-No HTTP API yet — Hello arrives on `lesson-08-hello`.
+Default URL: `http://localhost:8080`
 
-## Later lessons
-
-```bash
-git checkout lesson-XX-…   # see lab-samples-map.md
-./mvnw -q test
-./mvnw spring-boot:run
-```
-
-## Branch checklist (contributors / agents)
-
-1. `git checkout <parent> && git checkout -b <branch>` — parent from the map.
-2. English comments, README, and demo strings only.
-3. `./mvnw -q test` green before `git push`.
-4. No `HelloController` / `CorsConfig` on `lesson-32-lab` or `lesson-50-capstone`.
-5. DB lessons: `ddl/` (26–30) or Flyway (31+) + apply steps in README.
-6. Do **not** add disconnected `samples/` app trees.
-
-## What changed on `master` (lesson 05)
-
-- Skeleton: `pom.xml`, `ElearningApiApplication`, `application.yml`, context-load test.
-- Feature packages (`course` / `enrollment`) appear in later branches.
+On `master` the app starts with no business HTTP API yet. Switch to a lesson branch (for example `lesson-08-hello` or `lesson-16-rest-memory`) to match the article you are following, then run the same commands.
