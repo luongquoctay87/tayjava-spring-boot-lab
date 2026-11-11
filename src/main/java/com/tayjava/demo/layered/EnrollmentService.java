@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EnrollmentService {
 
-    public Enrollment enroll(long courseId, String studentEmail) {
-        return new Enrollment(1L, courseId, studentEmail, "ACTIVE");
-    }
+  public Enrollment enroll(long courseId, String studentEmail) {
+    return new Enrollment(1L, courseId, studentEmail, "ACTIVE");
+  }
 }

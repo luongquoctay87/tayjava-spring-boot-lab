@@ -7,6 +7,7 @@
 | Branch | `demo/lesson-04-anti-patterns` |
 | Parent | `master` |
 | Package | `com.tayjava.demo.anti`, `com.tayjava.demo.layered` |
+| Entry | `com.tayjava.TayJavApplication` |
 
 ## WARNING — do not copy to production
 
@@ -16,7 +17,7 @@ This branch intentionally shows **anti-patterns** (god controller, field injecti
 
 - `FatEnrollmentController` — validation + rules + store inside the controller
 - `FieldInjectionAntiPattern` — `@Autowired` on a field (discouraged)
-- `layered/*` — thin controller + service contrast sketch
+- `layered/*` — thin controller + service contrast sketch (`@RequiredArgsConstructor`)
 
 ## Run / test
 
