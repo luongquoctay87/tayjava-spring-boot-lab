@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-18-response-entity` |
-| Parent | `lesson-17-input` |
-| What changed | `ResponseEntity` for 201/204 plus 404/409 via `ResponseStatusException`. |
+| Branch | `lesson-20-cors` |
+| Parent | `lesson-18-response-entity` |
+| What changed | Optional `CorsConfig` for SPA origins (`elearning.cors.allowed-origins`). |
 
 ## Run (current branch)
 
