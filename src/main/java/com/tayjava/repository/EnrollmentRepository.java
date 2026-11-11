@@ -1,5 +1,6 @@
 package com.tayjava.repository;
 
+import com.tayjava.common.enums.EEnrollmentStatus;
 import com.tayjava.entity.Enrollment;
 import java.util.List;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -14,6 +15,8 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
   boolean existsByCourseIdAndStudentEmail(Long courseId, String studentEmail);
 
   List<Enrollment> findByStudentEmailOrderByEnrolledAtDesc(String studentEmail);
+
+  long countByStatus(EEnrollmentStatus status);
 
   @Query(
       """

@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-41-docker` |
-| Parent | `lesson-40-fat-jar` |
-| What changed | Add single-stage `Dockerfile` + `.dockerignore` that copies the pre-built fat JAR; pass `DB_*` at `docker run` time. |
+| Branch | `lesson-43-scheduled` |
+| Parent | `lesson-41-docker` |
+| What changed | Enable `@EnableScheduling` and add `EnrollmentStatsJob` (`@Scheduled` fixedDelay) logging ACTIVE/CANCELLED counts; `countByStatus` on the repository. |
 
 
 ## Database

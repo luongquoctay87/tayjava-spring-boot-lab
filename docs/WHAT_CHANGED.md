@@ -1,6 +1,6 @@
-# lesson-41-docker
+# lesson-43-scheduled
 
-- **Parent:** `lesson-40-fat-jar`
-- **What changed:** Add single-stage `Dockerfile` + `.dockerignore` that copies the pre-built fat JAR; pass `DB_*` at `docker run` time.
+- **Parent:** `lesson-41-docker`
+- **What changed:** Enable `@EnableScheduling` and add `EnrollmentStatsJob` (`@Scheduled` fixedDelay) logging ACTIVE/CANCELLED counts; `countByStatus` on the repository.
 
 Run tests: `./mvnw -q test`
