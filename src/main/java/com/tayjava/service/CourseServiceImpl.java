@@ -35,6 +35,11 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public synchronized CourseResp create(CourseReq req) {
+    boolean slugTaken =
+        store.values().stream().anyMatch(course -> course.getSlug().equals(req.slug()));
+    if (slugTaken) {
+      throw new IllegalStateException("Slug already exists: " + req.slug());
+    }
     Course course =
         new Course(
             sequence.incrementAndGet(), req.title(), req.slug(), req.level(), req.published());

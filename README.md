@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-16-rest-memory` |
-| Parent | `lesson-14-runners` |
-| What changed | In-memory Course REST: `GET /api/courses`, `GET /api/courses/{id}`, `DELETE /api/courses/{id}`. |
+| Branch | `lesson-17-input` |
+| Parent | `lesson-16-rest-memory` |
+| What changed | Request mapping inputs: `@PathVariable` / `@RequestBody` for create and update. |
 
 ## Run (current branch)
 

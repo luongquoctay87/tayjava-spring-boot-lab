@@ -1,13 +1,14 @@
-# lesson-16-rest-memory
+# lesson-17-input
 
-- **Parent:** `lesson-14-runners`
-- **What changed:** In-memory `entity.Course` + `CourseController` read/delete REST (`GET/DELETE /api/courses`).
+- **Parent:** `lesson-16-rest-memory`
+- **What changed:** `@RequestBody` / `@PathVariable` for `POST` create and `PUT` update on `/api/courses`.
 
 ## Smoke
 
 ```bash
-./mvnw spring-boot:run -Dspring-boot.run.profiles=local
-curl http://localhost:8081/api/courses
+curl -X POST http://localhost:8080/api/courses \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"Spring Boot","slug":"spring-boot","level":"BEGINNER","published":true}'
 ```
 
 Run tests: `./mvnw -q test`
