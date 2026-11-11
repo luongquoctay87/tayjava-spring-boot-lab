@@ -37,9 +37,10 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-26-jpa` |
-| Parent | `lesson-24-api-design` |
-| What changed | JPA `Course` entity + `CourseRepository`; `CourseServiceImpl` persists via the repository. PostgreSQL datasource, `open-in-view: false`, temporary `ddl-auto: update`. Reference SQL in `ddl/V1__create_course.sql`. Tests boot against Testcontainers PostgreSQL. |
+| Branch | `lesson-27-jpa-relations` |
+| Parent | `lesson-26-jpa` |
+| What changed | JPA `Enrollment` with `@ManyToOne` Course (LAZY) and unique `(course_id, student_email)`. `EnrollmentController` + `EnrollReq` / `EnrollmentResp`. Reference `ddl/V2__create_enrollment.sql`. |
+
 
 ## Database
 

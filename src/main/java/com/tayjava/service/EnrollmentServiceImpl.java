@@ -1,42 +1,61 @@
 package com.tayjava.service;
 
-import com.tayjava.common.dto.course.CourseResp;
 import com.tayjava.common.dto.enrollment.EnrollmentResp;
-import com.tayjava.common.enums.EEnrollmentStatus;
 import com.tayjava.common.enums.ErrorCode;
 import com.tayjava.common.exception.ErrorException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
+import com.tayjava.entity.Course;
+import com.tayjava.entity.Enrollment;
+import com.tayjava.repository.EnrollmentRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j(topic = "EnrollmentService")
 public class EnrollmentServiceImpl implements EnrollmentService {
 
+  private final EnrollmentRepository enrollments;
   private final CourseService courseService;
-  private final Map<Long, EnrollmentResp> enrollments = new ConcurrentHashMap<>();
-  private final AtomicLong sequence = new AtomicLong();
 
   @Override
+  @Transactional
   public EnrollmentResp enroll(Long courseId, String studentEmail) {
-    CourseResp course = courseService.get(courseId);
-    if (!course.published()) {
+    Course course = courseService.load(courseId);
+    if (!course.isPublished()) {
       throw new ErrorException(
           ErrorCode.COURSE_NOT_PUBLISHED, "Course is not published: " + courseId);
     }
-    boolean alreadyEnrolled =
-        enrollments.values().stream()
-            .anyMatch(e -> e.courseId().equals(courseId) && e.studentEmail().equals(studentEmail));
-    if (alreadyEnrolled) {
+    if (enrollments.existsByCourseIdAndStudentEmail(courseId, studentEmail)) {
       throw new ErrorException(
           ErrorCode.ALREADY_ENROLLED, "Already enrolled in course " + courseId);
     }
-    long id = sequence.incrementAndGet();
-    EnrollmentResp enrollment =
-        new EnrollmentResp(id, courseId, studentEmail, EEnrollmentStatus.ACTIVE);
-    enrollments.put(id, enrollment);
-    return enrollment;
+    Enrollment saved = enrollments.save(new Enrollment(course, studentEmail));
+    log.info("Enrolled student={} courseId={}", studentEmail, courseId);
+    return EnrollmentResp.from(saved);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<EnrollmentResp> listByStudent(String studentEmail) {
+    return enrollments.findByStudentEmailOrderByEnrolledAtDesc(studentEmail).stream()
+        .map(EnrollmentResp::from)
+        .toList();
+  }
+
+  @Override
+  @Transactional
+  public EnrollmentResp cancel(Long id) {
+    Enrollment enrollment =
+        enrollments
+            .findById(id)
+            .orElseThrow(
+                () ->
+                    new ErrorException(
+                        ErrorCode.ENROLLMENT_NOT_FOUND, "Enrollment not found: " + id));
+    enrollment.cancel();
+    return EnrollmentResp.from(enrollment);
   }
 }

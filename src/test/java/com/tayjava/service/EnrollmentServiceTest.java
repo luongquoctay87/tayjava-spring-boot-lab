@@ -2,47 +2,66 @@ package com.tayjava.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.when;
 
+import com.tayjava.common.dto.course.CourseReq;
 import com.tayjava.common.dto.course.CourseResp;
 import com.tayjava.common.dto.enrollment.EnrollmentResp;
 import com.tayjava.common.enums.ECourseLevel;
 import com.tayjava.common.enums.EEnrollmentStatus;
 import com.tayjava.common.enums.ErrorCode;
 import com.tayjava.common.exception.ErrorException;
+import com.tayjava.support.AbstractPostgresIntegrationTest;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@ExtendWith(MockitoExtension.class)
-class EnrollmentServiceTest {
+class EnrollmentServiceTest extends AbstractPostgresIntegrationTest {
 
-  @Mock private CourseService courseService;
-
-  @InjectMocks private EnrollmentServiceImpl enrollmentService;
+  @Autowired private CourseService courseService;
+  @Autowired private EnrollmentService enrollmentService;
 
   @Test
-  void enrollPublishedCourse() {
-    when(courseService.get(1L))
-        .thenReturn(new CourseResp(1L, "Spring Boot", "spring-boot", ECourseLevel.BEGINNER, true));
+  void enrollsIntoPublishedCourse() {
+    CourseResp course =
+        courseService.create(
+            new CourseReq(
+                "Spring Boot from zero",
+                "enroll-published-" + System.nanoTime(),
+                ECourseLevel.BEGINNER,
+                true));
 
-    EnrollmentResp enrollment = enrollmentService.enroll(1L, "alice@example.com");
+    EnrollmentResp enrollment = enrollmentService.enroll(course.id(), "alice@example.com");
 
-    assertThat(enrollment.courseId()).isEqualTo(1L);
-    assertThat(enrollment.studentEmail()).isEqualTo("alice@example.com");
     assertThat(enrollment.status()).isEqualTo(EEnrollmentStatus.ACTIVE);
+    assertThat(enrollment.courseId()).isEqualTo(course.id());
   }
 
   @Test
-  void enrollUnpublishedCourseFails() {
-    when(courseService.get(1L))
-        .thenReturn(new CourseResp(1L, "Draft", "draft", ECourseLevel.BEGINNER, false));
+  void rejectsUnpublishedCourse() {
+    CourseResp draft =
+        courseService.create(
+            new CourseReq(
+                "Draft", "enroll-draft-" + System.nanoTime(), ECourseLevel.BEGINNER, false));
 
-    assertThatThrownBy(() -> enrollmentService.enroll(1L, "alice@example.com"))
+    assertThatThrownBy(() -> enrollmentService.enroll(draft.id(), "alice@example.com"))
         .isInstanceOf(ErrorException.class)
         .extracting(ex -> ((ErrorException) ex).getErrorCode())
         .isEqualTo(ErrorCode.COURSE_NOT_PUBLISHED);
+  }
+
+  @Test
+  void rejectsDuplicateEnrollment() {
+    CourseResp course =
+        courseService.create(
+            new CourseReq(
+                "Unique enroll",
+                "enroll-dup-" + System.nanoTime(),
+                ECourseLevel.BEGINNER,
+                true));
+    enrollmentService.enroll(course.id(), "bob@example.com");
+
+    assertThatThrownBy(() -> enrollmentService.enroll(course.id(), "bob@example.com"))
+        .isInstanceOf(ErrorException.class)
+        .extracting(ex -> ((ErrorException) ex).getErrorCode())
+        .isEqualTo(ErrorCode.ALREADY_ENROLLED);
   }
 }
