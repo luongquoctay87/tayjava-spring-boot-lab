@@ -1,6 +1,7 @@
 package com.tayjava.demo.catalog;
 
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -8,15 +9,12 @@ import org.springframework.stereotype.Service;
  * Boot is the runtime host; this class would work the same on a hand-built context.
  */
 @Service
+@RequiredArgsConstructor
 public class CourseQueryService {
 
-    private final CourseCatalog catalog;
+  private final CourseCatalog catalog;
 
-    public CourseQueryService(CourseCatalog catalog) {
-        this.catalog = catalog;
-    }
-
-    public List<CourseSummary> listPublished() {
-        return catalog.findPublished();
-    }
+  public List<CourseSummary> listPublished() {
+    return catalog.findPublished();
+  }
 }

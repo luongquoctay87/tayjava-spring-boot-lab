@@ -7,10 +7,11 @@
 | Branch | `demo/lesson-03-framework-vs-boot` |
 | Parent | `master` |
 | Package | `com.tayjava.demo.catalog` |
+| Entry | `com.tayjava.TayJavApplication` |
 
 ## What changed
 
-Standalone catalog demo that shows Framework stereotypes (`@Service`, `@Repository`, `@RestController`) running inside a Boot host. `ElearningApiApplication` scans `com.tayjava.demo.catalog` on this side branch only.
+Standalone catalog demo that shows Framework stereotypes (`@Service`, `@Repository`, `@RestController`) running inside a Boot host. `TayJavApplication` scans `com.tayjava.demo.catalog` on this side branch only.
 
 ## Run / test
 
