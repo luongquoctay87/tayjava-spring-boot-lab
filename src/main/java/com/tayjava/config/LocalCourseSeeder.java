@@ -9,11 +9,13 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @Profile("local")
 @ConditionalOnProperty(prefix = "tayjava.seed", name = "enabled", havingValue = "true")
+@Order(1)
 @RequiredArgsConstructor
 @Slf4j(topic = "LocalCourseSeeder")
 public class LocalCourseSeeder implements ApplicationRunner {
@@ -22,6 +24,10 @@ public class LocalCourseSeeder implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) {
+    if (!courseService.list().isEmpty()) {
+      log.info("Courses already exist, skipping demo seed");
+      return;
+    }
     courseService.create(
         new CourseReq(
             "Spring Boot Fundamentals",

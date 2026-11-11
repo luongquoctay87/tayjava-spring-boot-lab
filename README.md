@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-13-profile-conditional` |
-| Parent | `lesson-11-constructor-di` |
-| What changed | `LocalCourseSeeder` (`@Profile` + `@ConditionalOnProperty`) under `config/`. |
+| Branch | `lesson-14-runners` |
+| Parent | `lesson-13-profile-conditional` |
+| What changed | Ordered `ApplicationRunner` / `CommandLineRunner` seeders in `config/`. |
 
 ## Run (current branch)
 

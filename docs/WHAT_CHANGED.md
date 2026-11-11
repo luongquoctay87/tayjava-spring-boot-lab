@@ -1,13 +1,6 @@
-# lesson-13-profile-conditional
+# lesson-14-runners
 
-- **Parent:** `lesson-11-constructor-di`
-- **What changed:** `LocalCourseSeeder` in `config/` with `@Profile("local")` + `@ConditionalOnProperty(tayjava.seed.enabled=true)`.
-
-## Smoke
-
-```bash
-./mvnw spring-boot:run -Dspring-boot.run.profiles=local
-# expect seed log for two demo courses
-```
+- **Parent:** `lesson-13-profile-conditional`
+- **What changed:** Ordered runners in `config/`: `LocalCourseSeeder` (`ApplicationRunner` `@Order(1)`, skip if store non-empty) + `SeedReportRunner` (`CommandLineRunner` `@Order(2)`).
 
 Run tests: `./mvnw -q test`
