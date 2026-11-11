@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-36-springboottest` |
-| Parent | `lesson-35-datajpatest` |
-| What changed | Align `@SpringBootTest` classes on shared `@AutoConfigureMockMvc` + `TestcontainersConfig` for context caching; add `EnrollmentApiFlowTests` and service-level enroll-once IT. |
+| Branch | `lesson-37-actuator` |
+| Parent | `lesson-36-springboottest` |
+| What changed | Add `spring-boot-starter-actuator` and expose only `health,info`; `ActuatorHealthTest` probes `/actuator/health` and `/actuator/info`. |
 
 
 ## Database
