@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-35-datajpatest` |
-| Parent | `lesson-34-mockmvc` |
-| What changed | Add `@DataJpaTest` for `CourseRepository` / `EnrollmentRepository` on Testcontainers PostgreSQL (`TestcontainersConfig` + `@ServiceConnection`), plus `spring-boot-starter-data-jpa-test`. Unique constraint covered with `saveAndFlush`. |
+| Branch | `lesson-36-springboottest` |
+| Parent | `lesson-35-datajpatest` |
+| What changed | Align `@SpringBootTest` classes on shared `@AutoConfigureMockMvc` + `TestcontainersConfig` for context caching; add `EnrollmentApiFlowTests` and service-level enroll-once IT. |
 
 
 ## Database
