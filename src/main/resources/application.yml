@@ -35,7 +35,9 @@ logging:
   level:
     root: INFO
     com.tayjava: INFO
-    org.hibernate.SQL: debug
+    org.hibernate.SQL: WARN
+  pattern:
+    console: "%d{ISO8601} %-5level [%thread] [%X{requestId}] %logger{36} - %msg%n"
 
 tayjava:
   seed:

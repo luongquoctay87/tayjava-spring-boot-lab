@@ -28,6 +28,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
   @Override
   @Transactional
   public EnrollmentResp enroll(Long courseId, String studentEmail) {
+    log.info("Enrolling student={} into courseId={}", studentEmail, courseId);
     Course course = courseService.load(courseId);
     if (!course.isPublished()) {
       throw new ErrorException(

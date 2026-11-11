@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-37-actuator` |
-| Parent | `lesson-36-springboottest` |
-| What changed | Add `spring-boot-starter-actuator` and expose only `health,info`; `ActuatorHealthTest` probes `/actuator/health` and `/actuator/info`. |
+| Branch | `lesson-38-logging` |
+| Parent | `lesson-37-actuator` |
+| What changed | Add `RequestIdFilter` (MDC `requestId` + `X-Request-Id`), console pattern with `%X{requestId}`, quieter Hibernate SQL, and lean `application-prod.yml` logging. |
 
 
 ## Database
