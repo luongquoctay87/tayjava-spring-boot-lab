@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-40-fat-jar` |
-| Parent | `lesson-39-env-secrets` |
-| What changed | Document packaging the Boot executable fat JAR (`./mvnw package` → `java -jar`) with profiles/env; note jarmode layer extract for Docker prep. |
+| Branch | `lesson-41-docker` |
+| Parent | `lesson-40-fat-jar` |
+| What changed | Add single-stage `Dockerfile` + `.dockerignore` that copies the pre-built fat JAR; pass `DB_*` at `docker run` time. |
 
 
 ## Database
@@ -63,6 +63,20 @@ cp .env.example .env   # fill DB_PASSWORD for profile local/prod; never commit .
 ```
 
 Default URL: `http://localhost:8080` (profile `local` uses port `8081`)
+
+
+## Docker (minimal image from fat JAR)
+
+```bash
+./mvnw -DskipTests package
+docker build -t tayjava-spring-boot-lab:local .
+docker run --rm -p 8080:8080 \
+  -e DB_URL='jdbc:postgresql://host.docker.internal:5432/tayjava' \
+  -e DB_USERNAME=tayjava \
+  -e DB_PASSWORD=tayjava \
+  tayjava-spring-boot-lab:local
+# curl -s http://localhost:8080/actuator/health
+```
 
 ## Package fat JAR (`java -jar`)
 

@@ -1,6 +1,6 @@
-# lesson-40-fat-jar
+# lesson-41-docker
 
-- **Parent:** `lesson-39-env-secrets`
-- **What changed:** Document packaging the Boot executable fat JAR (`./mvnw package` → `java -jar`) with profiles/env; note jarmode layer extract for Docker prep.
+- **Parent:** `lesson-40-fat-jar`
+- **What changed:** Add single-stage `Dockerfile` + `.dockerignore` that copies the pre-built fat JAR; pass `DB_*` at `docker run` time.
 
 Run tests: `./mvnw -q test`
