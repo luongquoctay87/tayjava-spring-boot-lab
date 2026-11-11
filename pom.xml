@@ -50,14 +50,17 @@
   </properties>
 
   <dependencies>
+    <!-- Web MVC starter: DispatcherServlet, embedded Tomcat, Jackson JSON -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webmvc</artifactId>
     </dependency>
+    <!-- Bean Validation API + Hibernate Validator (used from later lessons) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
     </dependency>
+    <!-- Test starter: JUnit 5, AssertJ, MockMvc / @SpringBootTest support -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webmvc-test</artifactId>

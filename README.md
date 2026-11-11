@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `master` |
-| Parent | `—` |
-| What changed | Base skeleton: `pom.xml`, `TayJavApplication`, `application.yml` on port **8080**. |
+| Branch | `lesson-06-pom` |
+| Parent | `master` |
+| What changed | Clarify Maven starters and lab source tree in `pom.xml` comments + `docs/WHAT_CHANGED.md`. |
 
 ## Run (current branch)
 
@@ -49,6 +49,4 @@ This repository is a companion for learning — not the TayJava production backe
 ```
 
 Default URL: `http://localhost:8080`
-
-On `master` the app starts with no business HTTP API yet. Switch to a lesson branch (for example `lesson-08-hello` or `lesson-16-rest-memory`) to match the article you are following, then run the same commands.
 
