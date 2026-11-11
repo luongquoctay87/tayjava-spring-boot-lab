@@ -37,9 +37,9 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-07-config` |
-| Parent | `lesson-06-pom` |
-| What changed | `application.yml` + `application-local.yml` with profile `local` (port 8081). |
+| Branch | `lesson-08-hello` |
+| Parent | `lesson-07-config` |
+| What changed | Temporary `HelloController` (`GET /api/hello`). Remove before lessons 32/50. |
 
 ## Run (current branch)
 
@@ -49,4 +49,10 @@ This repository is a companion for learning — not the TayJava production backe
 ```
 
 Default URL: `http://localhost:8080`
+
+Smoke:
+
+```bash
+curl http://localhost:8080/api/hello
+```
 
