@@ -37,9 +37,28 @@ This repository is a companion for learning — not the TayJava production backe
 
 | | |
 |---|---|
-| Branch | `lesson-23-dto-entity` |
-| Parent | `lesson-22-exception-handler` |
-| What changed | Documents the DTO / entity boundary. Controllers speak `CourseReq` / `CourseUpdateReq` / `CourseResp` only. Domain `Course` stays in `entity/`; map by hand with `CourseResp.from` (no MapStruct). |
+| Branch | `lesson-24-api-design` |
+| Parent | `lesson-23-dto-entity` |
+| What changed | Locks the Course API contract: resources, HTTP statuses (201/204/400/404/409), and `ErrorCode` values (`VALIDATION_ERROR`, `COURSE_NOT_FOUND`, `SLUG_TAKEN`). Enrollment routes are specified for later JPA lessons. |
+
+### Locked Course API
+
+| Method | Path | Success | Error codes |
+|--------|------|---------|-------------|
+| `GET` | `/api/courses` | 200 `Resp<data[]>` | — |
+| `GET` | `/api/courses/{id}` | 200 | `COURSE_NOT_FOUND` 404 |
+| `POST` | `/api/courses` | 201 + `Location` | `VALIDATION_ERROR` 400, `SLUG_TAKEN` 409 |
+| `PUT` | `/api/courses/{id}` | 200 | `VALIDATION_ERROR` 400, `COURSE_NOT_FOUND` 404 |
+| `DELETE` | `/api/courses/{id}` | 204 | `COURSE_NOT_FOUND` 404 |
+
+### Enrollment routes (implemented from lesson 27)
+
+| Method | Path | Success | Error codes |
+|--------|------|---------|-------------|
+| `POST` | `/api/courses/{courseId}/enrollments` | 201 + `Location` | `COURSE_NOT_FOUND`, `COURSE_NOT_PUBLISHED`, `ALREADY_ENROLLED` |
+| `GET` | `/api/enrollments/{id}` | 200 | `ENROLLMENT_NOT_FOUND` |
+| `GET` | `/api/enrollments?studentEmail=` | 200 | — |
+| `POST` | `/api/enrollments/{id}/cancel` | 200 | `ENROLLMENT_NOT_FOUND` |
 
 ## Run (current branch)
 

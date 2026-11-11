@@ -1,7 +1,7 @@
-# lesson-23-dto-entity
+# lesson-24-api-design
 
-- **Parent:** `lesson-22-exception-handler`
-- **What changed:** Controllers keep DTOs only (`CourseReq`, `CourseUpdateReq`, `CourseResp`). Domain `Course` stays in `entity/`; map manually via `CourseResp.from`. No JPA yet.
+- **Parent:** `lesson-23-dto-entity`
+- **What changed:** Locks Course API resources, statuses (201/204/400/404/409), and `ErrorCode` values. Enrollment routes documented for later JPA lessons; no production code change required on this branch.
 
 ## Smoke
 

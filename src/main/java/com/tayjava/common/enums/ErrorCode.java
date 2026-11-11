@@ -4,7 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-/** Canonical API/business error codes mapped to HTTP status values (lab subset). */
+/**
+ * Canonical API/business error codes mapped to HTTP status values (lab subset).
+ * Lesson 24 locks the Course contract around {@code VALIDATION_ERROR}, {@code COURSE_NOT_FOUND},
+ * and {@code SLUG_TAKEN}; enrollment codes are used from lesson 27 onward.
+ */
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
